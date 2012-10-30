@@ -63,3 +63,7 @@ file "#{node['ossec']['user']['dir']}/etc/client.keys" do
   group "ossec"
   mode 0660
 end
+
+service "ossec" do
+  action :restart
+end

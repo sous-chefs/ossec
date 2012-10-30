@@ -8,3 +8,4 @@ do
   scp -i <%= node['ossec']['user']['dir'] %>/.ssh/id_rsa -B -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no $key ossecd@$host:<%= node['ossec']['user']['dir'] %>/etc/client.keys >/dev/null 2>/dev/null
   rm $key
 done
+/etc/init.d/ossec restart

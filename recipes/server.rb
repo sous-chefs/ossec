@@ -64,7 +64,7 @@ template "#{node['ossec']['user']['dir']}/.ssh/id_rsa" do
 end
 
 cron "distribute-ossec-keys" do
-  minute "0"
+  minute "*/5"
   command "/usr/local/bin/dist-ossec-keys.sh"
   only_if { ::File.exists?("#{node['ossec']['user']['dir']}/etc/client.keys") }
 end
