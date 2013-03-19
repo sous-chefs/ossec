@@ -20,23 +20,15 @@
 node.set['ossec']['user']['install_type'] = "server"
 node.set['ossec']['server']['maxagents']  = 1024
 
-node.save
+if node[:cloud]
+  node.save
+end
 
 include_recipe "ossec"
 
 agent_manager = "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl"
 
 ssh_hosts = Array.new
-
-search(:node, "ossec:[* TO *] NOT role:#{node['ossec']['server_role']}") do |n|
-
-  ssh_hosts << n['ipaddress'] if n['keys']
-
-  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['hostname']}" do
-    not_if "grep '#{n['hostname']} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
-  end
-
-end
 
 template "/usr/local/bin/dist-ossec-keys.sh" do
   source "dist-ossec-keys.sh.erb"
