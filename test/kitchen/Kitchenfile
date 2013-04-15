@@ -1,3 +1,0 @@
-cookbook "ossec" do
-  runtimes []
-end
