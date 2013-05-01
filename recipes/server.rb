@@ -32,8 +32,8 @@ search(:node, "ossec:[* TO *] NOT role:#{node['ossec']['server_role']}") do |n|
 
   ssh_hosts << n['ipaddress'] if n['keys']
 
-  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['hostname']}" do
-    not_if "grep '#{n['hostname']} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
+    not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
   end
 
 end
