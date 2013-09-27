@@ -47,7 +47,13 @@ template "/usr/local/bin/dist-ossec-keys.sh" do
   not_if { ssh_hosts.empty? }
 end
 
-ossec_key = data_bag_item("ossec", "ssh")
+dbag_name = node["ossec"]["data_bag"]["name"]
+dbag_item = node["ossec"]["data_bag"]["ssh"]
+if node["ossec"]["data_bag"]["encrypted"]
+  ossec_key = Chef::EncryptedDataBagItem.load(dbag_name, dbag_item)
+else
+  ossec_key = data_bag_item(dbag_name, dbag_item)
+end
 
 directory "#{node['ossec']['user']['dir']}/.ssh" do
   owner "root"
