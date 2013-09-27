@@ -29,6 +29,7 @@ Default values are based on the defaults from OSSEC's own install.sh installatio
 * `node['ossec']['logs']` - Array of log files to analyze. Default is an empty array. These are in addition to the default logs in the ossec.conf.erb template.
 * `node['ossec']['syscheck_freq']` - Frequency that syscheck is executed, default 22 hours (79200 seconds)
 * `node['ossec']['server']['maxagents']` - Maximum number of agents, default setting is 256, but will be set to 1024 in the ossec::server recipe if used. Add as an override attribute in the `ossec_server` role if more nodes are required.
+* `node['ossec']['disable_config_generation']` - Boolean that dictates whether this cookbook should drop the ossec.conf template or not. This is useful if you're using a wrapper cookbook and would like to generate your own template.
 
 The `user` attributes are used to populate the config file (ossec.conf) and preload values for the installation script.
 
