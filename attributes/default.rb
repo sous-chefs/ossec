@@ -27,6 +27,7 @@ default['ossec']['syscheck_freq'] = 79200
 
 # server-only
 default['ossec']['server']['maxagents'] = 256
+default['ossec']['server']['cloud_public_addr'] = false
 
 # used to populate config files and preload values for install
 default['ossec']['user']['language'] = "en"
