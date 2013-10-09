@@ -20,8 +20,6 @@
 node.set['ossec']['user']['install_type'] = "server"
 node.set['ossec']['server']['maxagents']  = 1024
 
-node.save
-
 include_recipe "ossec"
 
 agent_manager = "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl"
