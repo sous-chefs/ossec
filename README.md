@@ -3,7 +3,7 @@ Description
 
 Installs OSSEC from source in a server-agent installation. See:
 
-http://www.ossec.net/main/manual/manual-installation/
+http://www.ossec.net/doc/manual/installation/index.html
 
 Requirements
 ====
