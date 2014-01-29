@@ -23,7 +23,11 @@ if node.run_list.roles.include?(node['ossec']['server_role'])
   ossec_server << node['ipaddress']
 else
   search(:node,"role:#{node['ossec']['server_role']}") do |n|
-    ossec_server << n['ipaddress']
+    if n['ossec']['server']['cloud_public_addr'] && n['cloud']
+      ossec_server << n['cloud']['public_ips'].first
+    else
+      ossec_server << n['ipaddress']
+    end
   end
 end
 

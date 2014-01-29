@@ -30,10 +30,16 @@ ssh_hosts = Array.new
 
 search(:node, "ossec:[* TO *] NOT role:#{node['ossec']['server_role']}") do |n|
 
-  ssh_hosts << n['ipaddress'] if n['keys']
+  if node['ossec']['server']['cloud_public_addr'] && n['cloud']
+    ipaddress = n['cloud']['public_ips'].first
+  else
+    ipaddress = n['ipaddress']
+  end
 
-  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
-    not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+  ssh_hosts << ipaddress if n['keys']
+
+  execute "#{agent_manager} -a --ip #{ipaddress} -n #{n['fqdn'][0..31]}" do
+    not_if "grep '#{n['fqdn'][0..31]} #{ipaddress}' #{node['ossec']['user']['dir']}/etc/client.keys"
   end
 
 end

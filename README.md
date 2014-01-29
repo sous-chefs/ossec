@@ -29,6 +29,7 @@ Default values are based on the defaults from OSSEC's own install.sh installatio
 * `node['ossec']['logs']` - Array of log files to analyze. Default is an empty array. These are in addition to the default logs in the ossec.conf.erb template.
 * `node['ossec']['syscheck_freq']` - Frequency that syscheck is executed, default 22 hours (79200 seconds)
 * `node['ossec']['server']['maxagents']` - Maximum number of agents, default setting is 256, but will be set to 1024 in the ossec::server recipe if used. Add as an override attribute in the `ossec_server` role if more nodes are required.
+* `node['ossec']['server']['cloud_public_addr']` - Under default configuration, OSSEC will use `node.ipaddress` to map IP's to chef nodes. Enabling this attribute will cause it to use `node.cloud.public_ips` instead. If the node is not in the cloud, it will fall back to `node.ipaddress`
 
 The `user` attributes are used to populate the config file (ossec.conf) and preload values for the installation script.
 
