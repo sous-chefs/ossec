@@ -23,6 +23,7 @@ Attributes
 Default values are based on the defaults from OSSEC's own install.sh installation script.
 
 * `node['ossec']['server_role']` - When using server/agent setup, this role is used to search for the OSSEC server, default `ossec_server`.
+* `node['ossec']['server_env']` - When using server/agent setup, this value will scope the role search to the specified environment, default nil.
 * `node['ossec']['checksum']` - SHA256 checksum of the source. Verified with SHA1 sum from OSSEC site.
 * `node['ossec']['version']` - Version of OSSEC to download/install. Used in URL.
 * `node['ossec']['url']` - URL to download the source.
