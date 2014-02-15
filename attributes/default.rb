@@ -25,6 +25,11 @@ default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node[
 default['ossec']['logs']        = []
 default['ossec']['syscheck_freq'] = 79200
 
+# data bag configuration
+default['ossec']['data_bag']['encrypted']  = false
+default['ossec']['data_bag']['name']       = "ossec"
+default['ossec']['data_bag']['ssh']        = "ssh"
+
 # server-only
 default['ossec']['server']['maxagents'] = 256
 
