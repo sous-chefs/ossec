@@ -5,7 +5,9 @@
 <% else -%>
     <email_notification>no</email_notification>
 <% end -%>
-    <email_to><%= @ossec['email'] %></email_to>
+    <% Array(@ossec['email']).each do |email| -%>
+    <email_to><%= email %></email_to>
+    <% end -%>
     <smtp_server><%= @ossec['smtp'] %></smtp_server>
     <email_from>ossecm@<%= node['fqdn'] %></email_from>
 <% @ossec['white_list'].each do |wl| -%>
