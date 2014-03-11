@@ -44,7 +44,7 @@ template "/usr/local/bin/dist-ossec-keys.sh" do
   owner "root"
   group "root"
   mode 0755
-  variables(:ssh_hosts => ssh_hosts)
+  variables(:ssh_hosts => ssh_hosts.sort)
   not_if { ssh_hosts.empty? }
 end
 
