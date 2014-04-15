@@ -30,6 +30,8 @@ else
   end
 end
 
+Chef::Log.debug("ossec_server = #{ossec_server}")
+
 node.set['ossec']['user']['install_type'] = "agent"
 node.set['ossec']['user']['agent_server_ip'] = ossec_server.first
 
