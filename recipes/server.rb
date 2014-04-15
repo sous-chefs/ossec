@@ -31,6 +31,8 @@ search_string << " AND (chef_environment:#{node['ossec']['server_env']})" if nod
 
 search(:node, search_string) do |n|
 
+  Chef::Log.debug("ossec::server ssh client node: #{n}")
+
   ssh_hosts << n['ipaddress'] if n['keys']
 
   execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
