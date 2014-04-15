@@ -11,9 +11,9 @@ Install the berkshelf plugin for vagrant, and berkshelf to your local Ruby envir
     vagrant plugin install vagrant-berkshelf
     gem install berkshelf
 
-Install Test Kitchen 1.0 (unreleased yet, use the alpha / prerelease version).
+Install Test Kitchen 1.0.
 
-    gem install test-kitchen --pre
+    gem install test-kitchen
 
 Install the Vagrant driver for Test Kitchen.
 
@@ -23,3 +23,5 @@ Once the above are installed, you should be able to run Test Kitchen:
 
     kitchen list
     kitchen test
+
+For testing the wui recipe, run the wui suite.  The test data bag uses a password of 'pass'.

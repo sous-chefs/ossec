@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+# databag settings
+default['ossec']['data_bag_secret'] = "/etc/chef/encrypted_data_bag_secret"
+default['ossec']['data_bag_item']   = "ssh"
+
 # general settings
 default['ossec']['server_role'] = "ossec_server"
 default['ossec']['server_env']  = nil
@@ -33,7 +37,7 @@ default['ossec']['data_bag']['name']       = "ossec"
 default['ossec']['data_bag']['ssh']        = "ssh"
 
 # server-only
-default['ossec']['server']['maxagents'] = 256
+default['ossec']['server']['maxagents']    = 256
 
 # used to populate config files and preload values for install
 default['ossec']['user']['language'] = "en"
@@ -55,3 +59,10 @@ default['ossec']['user']['firewall_response'] = true
 default['ossec']['user']['pf'] = false
 default['ossec']['user']['pf_table'] = false
 default['ossec']['user']['white_list'] = []
+
+# web-ui only
+default['ossec']['wui']['checksum']     = "142febadfd4b0de5a13ebd93c13eedfbee5f1899b6ee71c248054c14f47b8089"
+default['ossec']['wui']['version']      = "0.3"
+default['ossec']['wui']['url']          = "http://www.ossec.net/files/ossec-wui-#{node['ossec']['wui']['version']}.tar.gz"
+default['ossec']['users_databag']       = 'users'
+default['ossec']['users_databag_group'] = 'sysadmin'

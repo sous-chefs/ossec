@@ -1,0 +1,5 @@
+{
+  "id": "ossec",
+  "groups": [ "sysadmin" ],
+  "htpasswd": "{SHA}nU4eI71bcnBGqeO0t9tXvY1u5oQ="
+}

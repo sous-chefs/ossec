@@ -1,0 +1,5 @@
+{
+  "id": "ssh",
+  "pubkey": "pubkey",
+  "privkey": "privkey"
+}
