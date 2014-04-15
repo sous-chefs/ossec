@@ -17,9 +17,6 @@
 # limitations under the License.
 #
 
-# databag settings
-default['ossec']['data_bag_secret'] = "/etc/chef/encrypted_data_bag_secret"
-default['ossec']['data_bag_item']   = "ssh"
 
 # general settings
 default['ossec']['server_role'] = "ossec_server"
@@ -37,7 +34,7 @@ default['ossec']['data_bag']['name']       = "ossec"
 default['ossec']['data_bag']['ssh']        = "ssh"
 
 # server-only
-default['ossec']['server']['maxagents']    = 256
+default['ossec']['server']['maxagents'] = 256
 
 # used to populate config files and preload values for install
 default['ossec']['user']['language'] = "en"
