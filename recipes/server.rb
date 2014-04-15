@@ -21,8 +21,6 @@ chef_gem 'pry-remote' do
     action :install
 end
 
-require 'pry-remote'
-
 node.set['ossec']['user']['install_type'] = "server"
 node.set['ossec']['server']['maxagents']  = 1024
 
@@ -38,8 +36,6 @@ search_string << " AND (chef_environment:#{node['ossec']['server_env']})" if nod
 search(:node, search_string) do |n|
 
   ssh_hosts << n['ipaddress'] if n['keys']
-
-  binding.remote_pry
 
   begin
     execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
