@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-require 'pry'
+require 'pry-remote'
 
 node.set['ossec']['user']['install_type'] = "server"
 node.set['ossec']['server']['maxagents']  = 1024
