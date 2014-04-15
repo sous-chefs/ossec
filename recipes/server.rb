@@ -17,6 +17,10 @@
 # limitations under the License.
 #
 
+chef_gem 'pry-remote' do
+    action :install
+end
+
 require 'pry-remote'
 
 node.set['ossec']['user']['install_type'] = "server"
