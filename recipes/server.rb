@@ -17,10 +17,6 @@
 # limitations under the License.
 #
 
-chef_gem 'pry-remote' do
-    action :install
-end
-
 node.set['ossec']['user']['install_type'] = "server"
 node.set['ossec']['server']['maxagents']  = 1024
 
