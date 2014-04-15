@@ -33,8 +33,12 @@ search(:node, search_string) do |n|
 
   ssh_hosts << n['ipaddress'] if n['keys']
 
-  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
-    not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+  begin
+    execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
+      not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+    end
+  rescue
+    Chef::Log.debug("Not setting up client keys for node `#{n}` -- no fqdn? no ipaddress? no keys?")
   end
 
 end
