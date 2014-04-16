@@ -32,7 +32,6 @@ search_string << " AND (chef_environment:#{node['ossec']['server_env']})" if nod
 search(:node, search_string) do |n|
 
   ssh_hosts << n['ipaddress'] if n['keys']
-
   begin
     execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
       not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
