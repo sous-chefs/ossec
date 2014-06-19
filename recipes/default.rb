@@ -64,13 +64,19 @@ template "#{node['ossec']['user']['dir']}/etc/ossec.conf" do
   not_if { node['ossec']['disable_config_generation'] }
 end
 
-case node['platform']
-when "arch"
-  template "/etc/rc.d/ossec" do
-    source "ossec.rc.erb"
-    owner "root"
-    mode 0755
-  end
+case node['platform_family']
+  when "arch"
+    template "/etc/rc.d/ossec" do
+      source "ossec.rc.erb"
+      owner "root"
+      mode 0755
+    end
+  when "rhel"
+    template "/etc/init.d/ossec" do
+      source "ossec.init.erb"
+      owner "root"
+      mode 0755
+    end
 end
 
 service "ossec" do
