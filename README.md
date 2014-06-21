@@ -57,6 +57,14 @@ The `user` attributes are used to populate the config file (ossec.conf) and prel
 * `node['ossec']['user']['pf_table']` - The PF table to use on BSD. Default is false, set this to the desired table if enabling `pf`.
 * `node['ossec']['user']['white_list']` - Array of additional IP addresses to white list. Default is empty.
 
+These attributes are used to setup the OSSEC Web UI.
+
+* `node['ossec']['wui']['checksum']`     - Defaults to "142febadfd4b0de5a13ebd93c13eedfbee5f1899b6ee71c248054c14f47b8089"
+* `node['ossec']['wui']['version']`      - Defaults to "0.3"
+* `node['ossec']['wui']['url']`          - Defaults to "http://www.ossec.net/files/ossec-wui-0.3.tar.gz"
+* `node['ossec']['users_databag']`       - Defaults to 'users'
+* `node['ossec']['users_databag_group']` - Defaults to 'sysadmins'
+
 Recipes
 ====
 
@@ -106,6 +114,11 @@ To manage additional agents on the server that don't run chef, or for agentless 
     }
 
 Enable agentless monitoring in OSSEC and register the hosts on the server. Automated configuration of agentless nodes is not yet supported by this cookbook. For more information on the commands and configuration directives required in `ossec.conf`, see the [OSSEC Documentation](http://www.ossec.net/doc/manual/agent/agentless-monitoring.html)
+
+wui
+----
+
+Installs and configures OSSEC Web UI.  Requires users to be setup in a data bag (see __Data Bags__ section below).
 
 Usage
 ====
@@ -166,6 +179,30 @@ For OSSEC agents, create a role, `ossec_client`.
         }
       }
     )
+
+DATA BAGS
+---------
+### Users
+
+Create a `users` data bag that will contain the users that will be able to log into the OSSEC webui. Each user can use htauth with a specified password. Users that should be able to log in should be in the sysadmin group. Example user data bag item:
+
+```javascript
+{
+  "id": "osssecadmin",
+  "groups": "sysadmin",
+  "htpasswd": "hashed_htpassword"
+}
+```
+
+The htpasswd must be the hashed value. Get this value with htpasswd:
+
+    % htpasswd -n -s ossec
+    New password:
+    Re-type new password:
+    ossec:{SHA}oCagzV4lMZyS7jl2Z0WlmLxEkt4=
+
+For example use the `{SHA}oCagzV4lMZyS7jl2Z0WlmLxEkt4=` value in the data bag.
+
 
 Customization
 ----
