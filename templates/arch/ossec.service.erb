@@ -1,0 +1,10 @@
+[Unit]
+Description=OSSEC Host-based Intrusion Detection System
+
+[Service]
+Type=forking
+ExecStart=<%= node['ossec']['user']['dir'] %>/bin/ossec-control start
+ExecStop=<%= node['ossec']['user']['dir'] %>/bin/ossec-control stop
+
+[Install]
+WantedBy=basic.target
