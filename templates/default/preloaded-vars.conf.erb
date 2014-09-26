@@ -22,15 +22,14 @@ USER_ENABLE_ROOTCHECK="y"
 <% else -%>
 USER_ENABLE_ROOTCHECK="n"
 <% end -%>
+<% if @ossec['clean_install'] -%>
+USER_CLEANINSTALL="y"
+<% end -%>
 <% if @ossec['update'] -%>
 USER_UPDATE="y"
-<% else -%>
-USER_UPDATE="n"
 <% end -%>
 <% if @ossec['update_rules'] -%>
 USER_UPDATE_RULES="y"
-<% else -%>
-USER_UPDATE_RULES="n"
 <% end -%>
 <% if @ossec['binary_install'] -%>
 USER_BINARYINSTALL="x"

@@ -44,6 +44,7 @@ The `user` attributes are used to populate the config file (ossec.conf) and prel
 * `node['ossec']['user']['active_response']` - Whether to enable active response feature of OSSEC, default true. It is safe and recommended to leave this enabled.
 * `node['ossec']['user']['syscheck']` - Whether to enable the integrity checking process, syscheck. Default true. It is safe and recommended to leave this enabled.
 * `node['ossec']['user']['rootcheck']` - Whether to enable the rootkit checking process, rootcheck. Default true. It is safe and recommended to leave this enabled.
+* `node['ossec']['user']['clean_install']` - Whether a clean installation should be done, default false.
 * `node['ossec']['user']['update']` - Whether an update installation should be done, default false.
 * `node['ossec']['user']['update_rules']` - Whether to update rules files, default true.
 * `node['ossec']['user']['binary_install']` - If true, use the binaries in the bin directory rather than compiling. Default false. The cookbook doesn't yet support binary installations.
