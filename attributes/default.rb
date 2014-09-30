@@ -35,6 +35,7 @@ default['ossec']['data_bag']['ssh']        = "ssh"
 
 # server-only
 default['ossec']['server']['maxagents'] = 256
+default['ossec']['server']['scp']['timeout'] = 30
 
 # used to populate config files and preload values for install
 default['ossec']['user']['language'] = "en"
