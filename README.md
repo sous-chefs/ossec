@@ -53,7 +53,7 @@ The `user` attributes are used to populate the config file (ossec.conf) and prel
 * `node['ossec']['user']['smtp']` - Sets the SMTP relay to send email out. Default is 127.0.0.1, which assumes that a local MTA is set up (e.g., postfix).
 * `node['ossec']['user']['remote_syslog']` - Whether to enable the remote syslog server on the OSSEC server. Default false, not relevant for non-server.
 * `node['ossec']['user']['syslog_output']['enabled]` - Whether to enable remote syslog output.  This allows forwarding events directly to a syslog server. Not applicable to 'agent' mode.
-* `node['ossec']['user']['syslog_output']['server]` -  IP or hostname of syslog server. Default is `127.0.0.1`
+* `node['ossec']['user']['syslog_output']['server]` -  IP of syslog server. Default is `127.0.0.1`
 * `node['ossec']['user']['syslog_output']['port]` -  Receiving port on syslog server. Default is `514`
 * `node['ossec']['user']['syslog_output']['format]` -  Format of transmitted events. Default is `default`, or standard syslog.  See http://ossec-docs.readthedocs.org/en/latest/syntax/head_ossec_config.syslog_output.html
 * `node['ossec']['user']['syslog_output']['level]` - Minimum OSSEC event level to forward. Default is `5`
