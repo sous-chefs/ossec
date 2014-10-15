@@ -27,6 +27,18 @@
   </remote>
 
 <% end -%>
+<% if @ossec['syslog_output']['enabled'] && @ossec['install_type'] != 'agent' -%>
+  <syslog_output>
+    <server><%= @ossec['syslog_output']['server'] %></server>
+    <port><%= @ossec['syslog_output']['port'] %></port>
+    <format><%= @ossec['syslog_output']['format'] %></format>
+    <level><%= @ossec['syslog_output']['level'] %></level>
+  <% if @ossec['syslog_output']['group'].any? -%>
+    <group><%= @ossec['syslog_output']['group'].join('|') %></group>
+  <% end -%>
+  </syslog_output>
+
+<% end -%>
   <rules>
     <include>rules_config.xml</include>
     <include>pam_rules.xml</include>
