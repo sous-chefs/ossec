@@ -73,6 +73,15 @@ when "arch"
   end
 end
 
+ossec_plist = ::File.join(node['ossec']['user']['dir'], 'bin', '.process_list')
+execute 'Enable Remote Syslog Shipping' do
+  cwd ::File.join(node['ossec']['user']['dir'], 'bin')
+  command './ossec-control enable client-syslog'
+  not_if { ::File.exists?(ossec_plist) && ::File.read(ossec_plist).downcase.include?('csyslog_daemon') }
+  only_if { node['ossec']['install_type'] != 'agent' && node['ossec']['user']['syslog_output']['enabled'] }
+  notifies :restart, 'service[ossec]', :delayed
+end
+
 service "ossec" do
   supports :status => true, :restart => true
   action [:enable, :start]
