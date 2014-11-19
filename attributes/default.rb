@@ -23,7 +23,7 @@ default['ossec']['server_role'] = "ossec_server"
 default['ossec']['server_env']  = nil
 default['ossec']['checksum']    = "f8ac4a7d74068a8ca4f14e3c906bfa3a68a87fd026b463422bea79fe9d747249"
 default['ossec']['version']     = "2.7"
-default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node['ossec']['version']}.tar.gz"
+default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-%{node['ossec']['version']}.tar.gz"
 default['ossec']['logs']        = []
 default['ossec']['syscheck_freq'] = 79200
 default['ossec']['disable_config_generation'] = false
@@ -60,6 +60,6 @@ default['ossec']['user']['white_list'] = []
 # web-ui only
 default['ossec']['wui']['checksum']     = "142febadfd4b0de5a13ebd93c13eedfbee5f1899b6ee71c248054c14f47b8089"
 default['ossec']['wui']['version']      = "0.3"
-default['ossec']['wui']['url']          = "http://www.ossec.net/files/ossec-wui-#{node['ossec']['wui']['version']}.tar.gz"
+default['ossec']['wui']['url']          = "http://www.ossec.net/files/ossec-wui-%{node['ossec']['wui']['version']}.tar.gz"
 default['ossec']['users_databag']       = 'users'
 default['ossec']['users_databag_group'] = 'sysadmin'
