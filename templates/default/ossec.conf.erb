@@ -18,6 +18,10 @@
 <% if @ossec['install_type'] == 'agent' -%>
   <client>
     <server-ip><%= @ossec['agent_server_ip'] %></server-ip>
+    <% unless :version == "2.7" -%>
+    <notify_time><%= @ossec['notify_time'] %></notify_time>
+    <time-reconnect><%= @ossec['time-reconnect'] %></time-reconnect>
+    <% end -%>
   </client>
 
 <% end -%>
@@ -85,13 +89,13 @@
     <include>ossec_rules.xml</include>
     <include>attack_rules.xml</include>
     <include>local_rules.xml</include>
-  </rules>  
+  </rules>
 
   <% if @ossec['syscheck'] -%>
   <syscheck>
     <!-- Frequency that syscheck is executed - default to every 22 hours -->
     <frequency><%= node['ossec']['syscheck_freq'] %></frequency>
-    
+
     <!-- Directories to check  (perform all possible verifications) -->
     <directories check_all="yes">/etc,/usr/bin,/usr/sbin</directories>
     <directories check_all="yes">/bin,/sbin</directories>

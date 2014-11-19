@@ -59,7 +59,10 @@ template "#{node['ossec']['user']['dir']}/etc/ossec.conf" do
   owner "root"
   group "ossec"
   mode 0440
-  variables(:ossec => node['ossec']['user'])
+  variables(
+    :ossec => node['ossec']['user'],
+    :version => node['ossec']['version']
+  )
   notifies :restart, "service[ossec]"
   not_if { node['ossec']['disable_config_generation'] }
 end
