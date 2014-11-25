@@ -66,10 +66,10 @@ end
 
 case node['platform']
 when "arch"
-  template "/etc/rc.d/ossec" do
-    source "ossec.rc.erb"
+  template "/usr/lib/systemd/system/ossec.service" do
+    source "ossec.service.erb"
     owner "root"
-    mode 0755
+    mode 0644
   end
 end
 
