@@ -26,6 +26,7 @@ default['ossec']['version']     = "2.7"
 default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node['ossec']['version']}.tar.gz"
 default['ossec']['logs']        = []
 default['ossec']['syscheck_freq'] = 79200
+default['ossec']['use_partial_search'] = false
 default['ossec']['disable_config_generation'] = false
 
 # data bag configuration

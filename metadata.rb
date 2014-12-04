@@ -6,7 +6,7 @@ description      "Installs/Configures ossec"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          "1.0.5"
 
-%w{ build-essential apt apache2 }.each do |pkg|
+%w{ build-essential apt apache2 partial_search }.each do |pkg|
   depends pkg
 end
 

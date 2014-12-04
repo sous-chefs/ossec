@@ -30,7 +30,15 @@ search_string = "ossec:[* TO *]"
 search_string << " AND chef_environment:#{node['ossec']['server_env']}" if node['ossec']['server_env']
 search_string << " NOT role:#{node['ossec']['server_role']}"
 
-search(:node, search_string) do |n|
+if node['ossec']['use_partial_search']
+  search_keys = { 'fqdn' => ['fqdn'],
+                  'ipaddress' => ['ipaddress'] }
+  node_data = partial_search(:node, search_string, :keys => search_keys)
+else
+  node_data = search(:node, search_string)
+end
+
+node_data.each do |n|
 
   ssh_hosts << n['ipaddress'] if n['keys']
 
