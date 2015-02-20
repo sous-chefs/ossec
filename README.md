@@ -212,7 +212,6 @@ The main configuration file is maintained by Chef as a template, `ossec.conf.erb
 Further reading:
 
 * [OSSEC Documentation](http://www.ossec.net/doc/index.html)
-* [OSSEC Wiki](http://www.ossec.net/wiki/OSSEC)
 
 License and Author
 ====
