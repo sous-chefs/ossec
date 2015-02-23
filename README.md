@@ -52,6 +52,12 @@ The `user` attributes are used to populate the config file (ossec.conf) and prel
 * `node['ossec']['user']['email']` - Destination email address for OSSEC alerts. Default is `ossec@example.com` and should be changed via a role attribute.  Can take a string or an array of email addresses.
 * `node['ossec']['user']['smtp']` - Sets the SMTP relay to send email out. Default is 127.0.0.1, which assumes that a local MTA is set up (e.g., postfix).
 * `node['ossec']['user']['remote_syslog']` - Whether to enable the remote syslog server on the OSSEC server. Default false, not relevant for non-server.
+* `node['ossec']['user']['syslog_output']['enabled]` - Whether to enable remote syslog output.  This allows forwarding events directly to a syslog server. Not applicable to 'agent' mode.
+* `node['ossec']['user']['syslog_output']['server]` -  IP of syslog server. Default is `127.0.0.1`
+* `node['ossec']['user']['syslog_output']['port]` -  Receiving port on syslog server. Default is `514`
+* `node['ossec']['user']['syslog_output']['format]` -  Format of transmitted events. Default is `default`, or standard syslog.  See http://ossec-docs.readthedocs.org/en/latest/syntax/head_ossec_config.syslog_output.html
+* `node['ossec']['user']['syslog_output']['level]` - Minimum OSSEC event level to forward. Default is `5`
+* `node['ossec']['user']['syslog_output']['group]` - If specified, only forward group types in this array. Default is to forwards all groups. (e.g., `['syscheck', 'authentication_failure']`)
 * `node['ossec']['user']['firewall_response']` - Enable or disable the firewall response which sets up firewall rules for blocking. Default is true.
 * `node['ossec']['user']['pf']` - Enable PF firewall on BSD, default is false.
 * `node['ossec']['user']['pf_table']` - The PF table to use on BSD. Default is false, set this to the desired table if enabling `pf`.
