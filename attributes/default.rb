@@ -21,8 +21,8 @@
 # general settings
 default['ossec']['server_role'] = "ossec_server"
 default['ossec']['server_env']  = nil
-default['ossec']['checksum']    = "f8ac4a7d74068a8ca4f14e3c906bfa3a68a87fd026b463422bea79fe9d747249"
-default['ossec']['version']     = "2.7"
+default['ossec']['checksum']    = "03c073761aa484fe21a9fcc0ea318ba132ff2466c64360408046a4b8e527b529"
+default['ossec']['version']     = "2.8.1"
 default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node['ossec']['version']}.tar.gz"
 default['ossec']['logs']        = []
 default['ossec']['syscheck_freq'] = 79200
