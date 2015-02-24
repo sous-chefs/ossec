@@ -37,8 +37,8 @@ group 'ossec' do
   members node['apache']['group']
 end
 
-apache_dir = node['apache']['dir']
-apache_doc_root = "#{apache_dir}/htdocs"
+apache_dir = node['apache']['docroot_dir']
+apache_doc_root = "#{apache_dir}"
 
 directory apache_doc_root do
     action :create
