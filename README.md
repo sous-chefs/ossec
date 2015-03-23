@@ -56,6 +56,8 @@ The `user` attributes are used to populate the config file (ossec.conf) and prel
 * `node['ossec']['user']['pf']` - Enable PF firewall on BSD, default is false.
 * `node['ossec']['user']['pf_table']` - The PF table to use on BSD. Default is false, set this to the desired table if enabling `pf`.
 * `node['ossec']['user']['white_list']` - Array of additional IP addresses to white list. Default is empty.
+* `node['ossec']['user']['notify_time']` - Specifies the time in seconds between information messages sent by the agents to the server. Default is 600 seconds. (Available only with version 2.7.1 or later)
+* `node['ossec']['user']['time-reconnect']` - Time in seconds until a reconnection attempt. This should be set to a higher number than notify_time. Default is 900 seconds. (Available only with version 2.7.1 or later)
 
 These attributes are used to setup the OSSEC Web UI.
 
