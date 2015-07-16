@@ -19,5 +19,12 @@ platforms:
 
 suites:
 - name: default
-  run_list: ["recipe[ossec]"]
-  attributes: {}
+  run_list:
+    - recipe[ossec]
+- name: client
+  run_list:
+    - recipe[ossec::client]
+- name: server
+  run_list:
+    - recipe[ossec::server]
+  data_bags_path: 'test/integration/default/data_bags'

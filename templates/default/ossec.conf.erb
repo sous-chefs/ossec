@@ -15,18 +15,17 @@
 <% end -%>
   </global>
 
-<% if @ossec['install_type'] == 'agent' -%>
+<% case @ossec['install_type'] -%>
+<% when 'agent' -%>
   <client>
     <server-ip><%= @ossec['agent_server_ip'] %></server-ip>
   </client>
-
-<% end -%>
-<% unless @ossec['install_type'] == 'local' -%>
+<% when 'server' -%>
   <remote>
     <connection>secure</connection>
   </remote>
-
 <% end -%>
+
   <rules>
     <include>rules_config.xml</include>
     <include>pam_rules.xml</include>

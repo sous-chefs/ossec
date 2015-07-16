@@ -1,8 +1,8 @@
 #
 # Cookbook Name:: ossec
-# Recipe:: default
+# Recipe:: repository
 #
-# Copyright 2010-2015, Chef Software, Inc.
+# Copyright 2015, Opscode, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,5 +17,14 @@
 # limitations under the License.
 #
 
-include_recipe 'ossec::install_server'
-include_recipe 'ossec::common'
+case node['platform_family']
+when 'fedora', 'rhel'
+  include_recipe 'yum-atomic'
+when 'debian'
+  apt_repository 'ossec' do
+    uri 'http://ossec.wazuh.com/repos/apt/' + node['platform']
+    key 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
+    distribution node['lsb']['codename']
+    components ['main']
+  end
+end

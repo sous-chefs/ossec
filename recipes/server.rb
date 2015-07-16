@@ -17,23 +17,18 @@
 # limitations under the License.
 #
 
-node.set['ossec']['user']['install_type'] = 'server'
-node.set['ossec']['server']['maxagents']  = 1024
-
-include_recipe 'ossec'
-
-agent_manager = "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl"
+include_recipe 'ossec::install_server'
 
 ssh_hosts = []
 
 search_string = 'ossec:[* TO *]'
 search_string << " AND chef_environment:#{node['ossec']['server_env']}" if node['ossec']['server_env']
-search_string << " NOT role:#{node['ossec']['server_role']}"
+search_string << " AND NOT role:#{node['ossec']['server_role']} AND NOT fqdn:#{node['fqdn']}"
 
 search(:node, search_string) do |n|
   ssh_hosts << n['ipaddress'] if n['keys']
 
-  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
+  execute "#{node['ossec']['agent_manager']} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
     not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
   end
 end
@@ -68,6 +63,8 @@ template "#{node['ossec']['user']['dir']}/.ssh/id_rsa" do
   mode 0600
   variables(key: ossec_key['privkey'])
 end
+
+include_recipe 'ossec::common'
 
 cron 'distribute-ossec-keys' do
   minute '0'
