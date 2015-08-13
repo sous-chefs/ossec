@@ -13,5 +13,3 @@ Once the above are installed, you should be able to run Test Kitchen:
 
     kitchen list
     kitchen test
-
-For testing the wui recipe, run the wui suite.  The test data bag uses a password of 'pass'.
