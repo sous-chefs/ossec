@@ -5,7 +5,7 @@ describe 'ossec::server' do
   let(:data_bags_path) { File.expand_path('../../../../test/integration/default/data_bags', __FILE__) }
   let(:data_bag_ossec_ssh) { JSON.parse(File.read("#{data_bags_path}/ossec/ssh.json")) }
 
-  let(:chef_run) do
+  cached(:chef_run) do
     www_node = stub_node(:platform => 'ubuntu', :version => '14.04') do |node|
       node.set['ipaddress'] = '33.33.33.33'
       node.set['fqdn']      = 'chefspec_client.local'
