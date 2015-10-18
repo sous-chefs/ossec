@@ -12,7 +12,7 @@ describe 'ossec::client' do
   end
 
   it 'includes ossec::client recipe' do
-  	expect(chef_run).to include_recipe('ossec')
+    expect(chef_run).to include_recipe('ossec')
   end
 
   it 'creates ossecd user' do

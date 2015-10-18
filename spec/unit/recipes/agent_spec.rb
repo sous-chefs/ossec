@@ -12,6 +12,6 @@ describe 'ossec::agent' do
   end
 
   it 'includes ossec::client recipe' do
-  	expect(chef_run).to include_recipe('ossec::client')
+    expect(chef_run).to include_recipe('ossec::client')
   end
 end
