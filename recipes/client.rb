@@ -2,7 +2,7 @@
 # Cookbook Name:: ossec
 # Recipe:: client
 #
-# Copyright 2010, Opscode, Inc.
+# Copyright 2010-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-ossec_server = Array.new
+ossec_server = []
 
 search_string = "role:#{node['ossec']['server_role']}"
 search_string << " AND chef_environment:#{node['ossec']['server_env']}" if node['ossec']['server_env']
@@ -30,43 +30,43 @@ else
   end
 end
 
-node.set['ossec']['user']['install_type'] = "agent"
+node.set['ossec']['user']['install_type'] = 'agent'
 node.set['ossec']['user']['agent_server_ip'] = ossec_server.first
 
-include_recipe "ossec"
+include_recipe 'ossec'
 
-dbag_name = node["ossec"]["data_bag"]["name"]
-dbag_item = node["ossec"]["data_bag"]["ssh"]
-if node["ossec"]["data_bag"]["encrypted"]
+dbag_name = node['ossec']['data_bag']['name']
+dbag_item = node['ossec']['data_bag']['ssh']
+if node['ossec']['data_bag']['encrypted']
   ossec_key = Chef::EncryptedDataBagItem.load(dbag_name, dbag_item)
 else
   ossec_key = data_bag_item(dbag_name, dbag_item)
 end
 
-user "ossecd" do
-  comment "OSSEC Distributor"
-  shell "/bin/bash"
+user 'ossecd' do
+  comment 'OSSEC Distributor'
+  shell '/bin/bash'
   system true
-  gid "ossec"
+  gid 'ossec'
   home node['ossec']['user']['dir']
 end
 
 directory "#{node['ossec']['user']['dir']}/.ssh" do
-  owner "ossecd"
-  group "ossec"
+  owner 'ossecd'
+  group 'ossec'
   mode 0750
 end
 
 template "#{node['ossec']['user']['dir']}/.ssh/authorized_keys" do
-  source "ssh_key.erb"
-  owner "ossecd"
-  group "ossec"
+  source 'ssh_key.erb'
+  owner 'ossecd'
+  group 'ossec'
   mode 0600
-  variables(:key => ossec_key['pubkey'])
+  variables(key: ossec_key['pubkey'])
 end
 
 file "#{node['ossec']['user']['dir']}/etc/client.keys" do
-  owner "ossecd"
-  group "ossec"
+  owner 'ossecd'
+  group 'ossec'
   mode 0660
 end

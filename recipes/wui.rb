@@ -2,7 +2,7 @@
 # Cookbook Name:: ossec
 # Recipe:: default
 #
-# Copyright 2010, Opscode, Inc.
+# Copyright 2010-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,12 +17,10 @@
 # limitations under the License.
 #
 
-if platform?('ubuntu')
-  include_recipe "apt"
-end
-include_recipe "apache2"
-include_recipe "apache2::mod_php5"
-include_recipe "ossec::server"
+include_recipe 'apt' if platform?('ubuntu')
+include_recipe 'apache2'
+include_recipe 'apache2::mod_php5'
+include_recipe 'ossec::server'
 
 user_databag = node['ossec']['users_databag'].to_sym
 group = node['ossec']['users_databag_group']
@@ -41,7 +39,7 @@ apache_dir = node['apache']['dir']
 apache_doc_root = "#{apache_dir}/htdocs"
 
 directory apache_doc_root do
-    action :create
+  action :create
 end
 
 ossec_wui_dir = "ossec-wui-#{node['ossec']['wui']['version']}"
@@ -61,21 +59,21 @@ bash 'unpackage-ossec-wui' do
 end
 
 directory "#{apache_dir}/ossec" do
-    action :create
+  action :create
 end
 
 template "#{apache_doc_root}/ossec-wui/.htaccess" do
   source 'htaccess.erb'
   owner node['apache']['user']
   group node['apache']['group']
-  variables({ :htpasswd => "#{apache_dir}/ossec/.htpasswd" })
-  notifies :restart, "service[apache2]"
+  variables(htpasswd: "#{apache_dir}/ossec/.htpasswd")
+  notifies :restart, 'service[apache2]'
 end
 
 template "#{apache_dir}/ossec/.htpasswd" do
   source 'htpasswd.erb'
   owner node['apache']['user']
   group node['apache']['group']
-  variables({ :sysadmins => sysadmins })
-  notifies :restart, "service[apache2]"
+  variables(sysadmins: sysadmins)
+  notifies :restart, 'service[apache2]'
 end
