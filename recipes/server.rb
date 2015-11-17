@@ -29,7 +29,7 @@ search(:node, search_string) do |n|
   ssh_hosts << n['ipaddress'] if n['keys']
 
   execute "#{node['ossec']['agent_manager']} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
-    not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+    not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['dir']}/etc/client.keys"
   end
 end
 
@@ -50,13 +50,13 @@ else
   ossec_key = data_bag_item(dbag_name, dbag_item)
 end
 
-directory "#{node['ossec']['user']['dir']}/.ssh" do
+directory "#{node['ossec']['dir']}/.ssh" do
   owner 'root'
   group 'ossec'
   mode 0750
 end
 
-template "#{node['ossec']['user']['dir']}/.ssh/id_rsa" do
+template "#{node['ossec']['dir']}/.ssh/id_rsa" do
   source 'ssh_key.erb'
   owner 'root'
   group 'ossec'
@@ -69,5 +69,5 @@ include_recipe 'ossec::common'
 cron 'distribute-ossec-keys' do
   minute '0'
   command '/usr/local/bin/dist-ossec-keys.sh'
-  only_if { ::File.exist?("#{node['ossec']['user']['dir']}/etc/client.keys") }
+  only_if { ::File.exist?("#{node['ossec']['dir']}/etc/client.keys") }
 end

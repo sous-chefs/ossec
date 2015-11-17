@@ -18,29 +18,45 @@
 #
 
 # general settings
-default['ossec']['server_role'] = 'ossec_server'
-default['ossec']['server_env']  = nil
-default['ossec']['logs']        = []
-default['ossec']['syscheck_freq'] = 79_200
-default['ossec']['disable_config_generation'] = false
+default['ossec']['dir']             = '/var/ossec'
+default['ossec']['server_role']     = 'ossec_server'
+default['ossec']['server_env']      = nil
+default['ossec']['agent_server_ip'] = nil
 
 # data bag configuration
 default['ossec']['data_bag']['encrypted']  = false
 default['ossec']['data_bag']['name']       = 'ossec'
 default['ossec']['data_bag']['ssh']        = 'ssh'
 
-# used to populate config files and preload values for install
-default['ossec']['user']['dir'] = '/var/ossec'
-default['ossec']['user']['syscheck'] = true
-default['ossec']['user']['rootcheck'] = true
-default['ossec']['user']['agent_server_ip'] = nil
-default['ossec']['user']['enable_email'] = true
-default['ossec']['user']['email'] = 'ossec@example.com'
-default['ossec']['user']['smtp'] = '127.0.0.1'
-default['ossec']['user']['white_list'] = []
-
 # ossec-batch-manager.pl location varies
 default['ossec']['agent_manager'] = value_for_platform_family(
   %w( rhel fedora suse ) => '/usr/share/ossec/contrib/ossec-batch-manager.pl',
-  'default' => "#{node['ossec']['user']['dir']}/contrib/ossec-batch-manager.pl"
+  'default' => "#{node['ossec']['dir']}/contrib/ossec-batch-manager.pl"
 )
+
+# The following attributes are mapped to XML for ossec.conf using
+# Gyoku. See the README for details on how this works.
+
+default['ossec']['conf']['all']['syscheck']['frequency'] = 21_600
+default['ossec']['conf']['all']['rootcheck']['disabled'] = false
+default['ossec']['conf']['all']['rootcheck']['rootkit_files'] = "#{node['ossec']['dir']}/etc/shared/rootkit_files.txt"
+default['ossec']['conf']['all']['rootcheck']['rootkit_trojans'] = "#{node['ossec']['dir']}/etc/shared/rootkit_trojans.txt"
+
+%w( local server ).each do |type|
+  default['ossec']['conf'][type]['global']['email_notification'] = false
+  default['ossec']['conf'][type]['global']['email_from'] = "ossecm@#{node['fqdn']}"
+  default['ossec']['conf'][type]['global']['email_to'] = 'ossec@example.com'
+  default['ossec']['conf'][type]['global']['smtp_server'] = '127.0.0.1'
+
+  default['ossec']['conf'][type]['alerts']['email_alert_level'] = 7
+  default['ossec']['conf'][type]['alerts']['log_alert_level'] = 1
+  default['ossec']['conf'][type]['alerts']['use_geoip'] = false
+end
+
+default['ossec']['conf']['server']['remote']['connection'] = 'secure'
+default['ossec']['conf']['agent']['client']['server-ip'] = node['ossec']['agent_server_ip']
+
+# agent.conf is also populated with Gyoku but in a slightly different
+# way. We leave this blank by default because Chef is better at
+# distributing agent configuration than OSSEC is.
+default['ossec']['agent_conf'] = []

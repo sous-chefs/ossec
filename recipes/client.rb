@@ -30,7 +30,7 @@ else
   end
 end
 
-node.set['ossec']['user']['agent_server_ip'] = ossec_server.first
+node.set['ossec']['agent_server_ip'] = ossec_server.first
 
 include_recipe 'ossec::install_agent'
 
@@ -42,13 +42,13 @@ else
   ossec_key = data_bag_item(dbag_name, dbag_item)
 end
 
-directory "#{node['ossec']['user']['dir']}/.ssh" do
+directory "#{node['ossec']['dir']}/.ssh" do
   owner 'ossec'
   group 'ossec'
   mode 0750
 end
 
-template "#{node['ossec']['user']['dir']}/.ssh/authorized_keys" do
+template "#{node['ossec']['dir']}/.ssh/authorized_keys" do
   source 'ssh_key.erb'
   owner 'ossec'
   group 'ossec'
@@ -56,7 +56,7 @@ template "#{node['ossec']['user']['dir']}/.ssh/authorized_keys" do
   variables(key: ossec_key['pubkey'])
 end
 
-file "#{node['ossec']['user']['dir']}/etc/client.keys" do
+file "#{node['ossec']['dir']}/etc/client.keys" do
   owner 'ossec'
   group 'ossec'
   mode 0660

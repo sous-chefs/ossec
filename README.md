@@ -24,28 +24,71 @@ This cookbook doesn't configure Windows systems yet. For information on installi
 Attributes
 ----------
 
-Default values are based on the defaults from OSSEC's own install.sh installation script.
-
+* `node['ossec']['dir']` - Installation directory for OSSEC, default `/var/ossec`. All existing packages use this directory so you should not change this.
 * `node['ossec']['server_role']` - When using server/agent setup, this role is used to search for the OSSEC server, default `ossec_server`.
 * `node['ossec']['server_env']` - When using server/agent setup, this value will scope the role search to the specified environment, default nil.
-* `node['ossec']['logs']` - Array of log files to analyze. Default is an empty array. These are in addition to the default logs in the ossec.conf.erb template.
-* `node['ossec']['syscheck_freq']` - Frequency that syscheck is executed, default 22 hours (79200 seconds)
+* `node['ossec']['agent_server_ip']` - The IP of the OSSEC server. The client recipe will attempt to determine this value via search. Default is nil, only required for agent installations.
 * `node['ossec']['data_bag']['encrypted']` - Boolean value which indicates whether or not the OSSEC data bag is encrypted
 * `node['ossec']['data_bag']['name']` - The name of the data bag to use
 * `node['ossec']['data_bag']['ssh']` - The name of the data bag item which contains the OSSEC keys
-* `node['ossec']['disable_config_generation']` - Boolean that dictates whether this cookbook should drop the ossec.conf template or not. This is useful if you're using a wrapper cookbook and would like to generate your own template.
 
-The `user` attributes are used to populate the config file (ossec.conf) and preload values for the installation script.
+###ossec.conf
 
-* `node['ossec']['user']['install_type']` - This is set automatically to either `server`, `agent`, or `local` before writing ossec.conf. The OSSEC packages do not differentiate between server and local installations but the cookbook behaviour varies slightly.
-* `node['ossec']['user']['dir']` - Installation directory for OSSEC, default `/var/ossec`. All existing packages use this directory so you should not change this.
-* `node['ossec']['user']['syscheck']` - Whether to enable the integrity checking process, syscheck. Default true. It is safe and recommended to leave this enabled.
-* `node['ossec']['user']['rootcheck']` - Whether to enable the rootkit checking process, rootcheck. Default true. It is safe and recommended to leave this enabled.
-* `node['ossec']['user']['agent_server_ip']` - The IP of the OSSEC server. The client recipe will attempt to determine this value via search. Default is nil, only required for agent installations.
-* `node['ossec']['user']['enable_email']` - Enable or disable email alerting. Default is true.
-* `node['ossec']['user']['email']` - Destination email address for OSSEC alerts. Default is `ossec@example.com` and should be changed via a role attribute.  Can take a string or an array of email addresses.
-* `node['ossec']['user']['smtp']` - Sets the SMTP relay to send email out. Default is 127.0.0.1, which assumes that a local MTA is set up (e.g., postfix).
-* `node['ossec']['user']['white_list']` - Array of additional IP addresses to white list. Default is empty.
+OSSEC's configuration is mainly read from an XML file called `ossec.conf`. You can directly control the contents of this file using node attributes under `node['ossec']['conf']`. These attributes are mapped to XML using Gyoku. See the [Gyoku site](https://github.com/savonrb/gyoku) for details on how this works.
+
+Chef applies attributes from all attribute files regardless of which recipes were executed. In order to make wrapper cookbooks easier to write, `node['ossec']['conf']` is divided into the three installation types mentioned below, `local`, `server`, and `agent`. You can also set attributes under `all` to apply settings across all installation types. The typed attributes are automatically deep merged over the `all` attributes in the normal Chef manner.
+
+`true` and `false` values are automatically mapped to `"yes"` and `"no"` as OSSEC expects the latter.
+
+`ossec.conf` makes little use of XML attributes so you can generally construct nested hashes in the usual fashion. Where an attribute is required, you can do it like this:
+
+    default['ossec']['conf']['all']['syscheck']['directories'] = [
+      { '@check_all' => true, 'content!' => '/bin,/sbin' },
+      '/etc,/usr/bin,/usr/sbin'
+    ]
+
+This produces:
+
+    <syscheck>
+      <directories check_all="yes">/bin,/sbin</directories>
+      <directories>/etc,/usr/bin,/usr/sbin</directories>
+    </syscheck>
+
+The default values are based on those given in the OSSEC manual. They do not include any specific rules, checks, outputs, or alerts as everyone has different requirements.
+
+###agent.conf
+
+OSSEC servers can also distribute configuration to agents through the centrally managed XM file called `agent.conf`. Since Chef is better at distributing configuration than OSSEC is, the cookbook leaves this file blank by default. Should you want to populate it, it is done in a similar manner to the above. Since this file is only used on servers, you can define the attributes directly under `node['ossec']['agent_conf']`. Unlike conventional XML files, `agent.conf` has multiple root nodes so `node['ossec']['agent_conf']` must be treated as an array like so.
+
+    default['ossec']['agent_conf'] = [
+      {
+        'syscheck' => { 'frequency' => 4321 },
+        'rootcheck' => { 'disabled' => true }
+      },
+      {
+        '@os' => 'Windows',
+        'content!' => {
+          'syscheck' => { 'frequency' => 1234 }
+        }
+      }
+    ]
+
+This produces:
+
+    <agent_config>
+      <syscheck>
+        <frequency>4321</frequency>
+      </syscheck>
+      <rootcheck>
+        <disabled>yes</disabled>
+      </rootcheck>
+    </agent_config>
+    
+    <agent_config os="Windows">
+      <syscheck>
+        <frequency>1234</frequency>
+      </syscheck>
+    </agent_config>
 
 Recipes
 -------
@@ -148,9 +191,13 @@ For the OSSEC server, create a role, `ossec_server`. Add attributes per above as
     run_list("recipe[ossec::server]")
     override_attributes(
       "ossec" => {
-        "user" => {
-          "email" => "ossec@yourdomain.com",
-          "smtp" => "smtp.yourdomain.com"
+        "conf" => {
+          "server" => {
+            "global" => {
+              "email_to" => "ossec@yourdomain.com",
+              "smtp_server" => "smtp.yourdomain.com"
+            }
+          }
         }
       }
     )
@@ -163,9 +210,12 @@ For OSSEC agents, create a role, `ossec_client`.
     run_list("recipe[ossec::client]")
     override_attributes(
       "ossec" => {
-        "user" => {
-          "email" => "ossec@yourdomain.com",
-          "smtp" => "smtp.yourdomain.com"
+        "conf" => {
+          "agent" => {
+            "syscheck" => {
+              "frequency" => 321
+            }
+          }
         }
       }
     )
