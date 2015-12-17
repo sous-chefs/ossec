@@ -27,6 +27,7 @@ default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node[
 default['ossec']['logs']        = []
 default['ossec']['syscheck_freq'] = 79200
 default['ossec']['disable_config_generation'] = false
+default['ossec']['email_alert_level']   = "7"
 
 # data bag configuration
 default['ossec']['data_bag']['encrypted']  = false
@@ -35,6 +36,7 @@ default['ossec']['data_bag']['ssh']        = "ssh"
 
 # server-only
 default['ossec']['server']['maxagents'] = 256
+default['ossec']['server']['scp']['timeout'] = nil
 
 # used to populate config files and preload values for install
 default['ossec']['user']['language'] = "en"
