@@ -27,6 +27,7 @@ default['ossec']['url']         = "http://www.ossec.net/files/ossec-hids-#{node[
 default['ossec']['logs']        = []
 default['ossec']['syscheck_freq'] = 79200
 default['ossec']['disable_config_generation'] = false
+default['ossec']['email_alert_level'] = "7"
 
 # data bag configuration
 default['ossec']['data_bag']['encrypted']  = false
