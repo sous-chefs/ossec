@@ -70,3 +70,9 @@ file "#{node['ossec']['user']['dir']}/etc/client.keys" do
   group "ossec"
   mode 0660
 end
+
+log 'restart ossec service' do
+  notifies :restart, 'service[ossec]', :immediately
+  # This avoids failure when converging the first time when server has not scp'ed keys yet.
+  only_if "test -s #{node['ossec']['user']['dir']}/etc/client.keys"
+end

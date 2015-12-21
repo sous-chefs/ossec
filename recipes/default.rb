@@ -60,7 +60,6 @@ template "#{node['ossec']['user']['dir']}/etc/ossec.conf" do
   group "ossec"
   mode 0440
   variables(:ossec => node['ossec']['user'])
-  notifies :restart, "service[ossec]"
   not_if { node['ossec']['disable_config_generation'] }
 end
 
@@ -75,5 +74,7 @@ end
 
 service "ossec" do
   supports :status => true, :restart => true
-  action [:enable, :start]
+  # had to remove start to support 2.8.3. Server and client recipe will
+  # notify restart immediately later on when client.keys is in place.
+  action [:enable]
 end

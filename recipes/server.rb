@@ -22,22 +22,36 @@ node.set['ossec']['server']['maxagents']  = 1024
 
 include_recipe "ossec"
 
+# It's hard to create robust conditionals here, see also
+# http://tickets.opscode.com/browse/COOK-1828
+log 'restart ossec service' do
+  notifies :restart, 'service[ossec]', :immediately
+end
+
 agent_manager = "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl"
 
 ssh_hosts = Array.new
 
-search_string = "ossec:[* TO *]" 
+search_string = "ossec:[* TO *]"
+Chef::Log.debug("search_string:#{search_string}")
+
+
 search_string << " AND chef_environment:#{node['ossec']['server_env']}" if node['ossec']['server_env']
 search_string << " NOT role:#{node['ossec']['server_role']}"
 
+Chef::Log.debug("search_string:#{search_string}")
+
 search(:node, search_string) do |n|
-
+  Chef::Log.debug("node:#{node}")
   ssh_hosts << n['ipaddress'] if n['keys']
+  Chef::Log.debug("host: #{n['fqdn']} (#{n['ipaddress']})")
+  Chef::Log.debug("ssh_hosts: #{ssh_hosts}")
 
-  execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
-    not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+  unless n['fqdn'].nil? # kitchen test needs it as it creates dummy empty entries and [][] triggers nilClass
+    execute "#{agent_manager} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
+      not_if "grep '#{n['fqdn'][0..31]} #{n['ipaddress']}' #{node['ossec']['user']['dir']}/etc/client.keys"
+    end
   end
-
 end
 
 template "/usr/local/bin/dist-ossec-keys.sh" do
@@ -76,4 +90,3 @@ cron "distribute-ossec-keys" do
   command "/usr/local/bin/dist-ossec-keys.sh"
   only_if { ::File.exists?("#{node['ossec']['user']['dir']}/etc/client.keys") }
 end
-
