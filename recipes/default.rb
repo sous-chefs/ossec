@@ -2,7 +2,7 @@
 # Cookbook Name:: ossec
 # Recipe:: default
 #
-# Copyright 2010, Opscode, Inc.
+# Copyright 2010-2015, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe "build-essential"
+include_recipe 'build-essential'
 
 ossec_dir = "ossec-hids-#{node['ossec']['version']}"
 
@@ -32,11 +32,11 @@ execute "tar zxvf #{ossec_dir}.tar.gz" do
 end
 
 template "#{Chef::Config[:file_cache_path]}/#{ossec_dir}/etc/preloaded-vars.conf" do
-  source "preloaded-vars.conf.erb"
-  variables :ossec => node['ossec']['user']
+  source 'preloaded-vars.conf.erb'
+  variables ossec: node['ossec']['user']
 end
 
-bash "install-ossec" do
+bash 'install-ossec' do
   cwd "#{Chef::Config[:file_cache_path]}/#{ossec_dir}"
   code <<-EOH
   echo "HEXTRA=-DMAX_AGENTS=#{node['ossec']['server']['maxagents']}" >> src/Config.OS
@@ -49,31 +49,31 @@ end
 template "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl" do
   source "#{Chef::Config[:file_cache_path]}/#{ossec_dir}/contrib/ossec-batch-manager.pl"
   local true
-  owner "root"
-  group "ossec"
+  owner 'root'
+  group 'ossec'
   mode 0755
 end
 
 template "#{node['ossec']['user']['dir']}/etc/ossec.conf" do
-  source "ossec.conf.erb"
-  owner "root"
-  group "ossec"
+  source 'ossec.conf.erb'
+  owner 'root'
+  group 'ossec'
   mode 0440
-  variables(:ossec => node['ossec']['user'])
-  notifies :restart, "service[ossec]"
+  variables(ossec: node['ossec']['user'])
+  notifies :restart, 'service[ossec]'
   not_if { node['ossec']['disable_config_generation'] }
 end
 
 case node['platform']
-when "arch"
-  template "/usr/lib/systemd/system/ossec.service" do
-    source "ossec.service.erb"
-    owner "root"
+when 'arch'
+  template '/usr/lib/systemd/system/ossec.service' do
+    source 'ossec.service.erb'
+    owner 'root'
     mode 0644
   end
 end
 
-service "ossec" do
-  supports :status => true, :restart => true
+service 'ossec' do
+  supports status: true, restart: true
   action [:enable, :start]
 end

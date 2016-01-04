@@ -1,24 +1,30 @@
-Description
-====
+ossec cookbook
+==============
+
+[![Cookbook Version](https://img.shields.io/cookbook/v/ossec.svg)](https://supermarket.chef.io/cookbooks/ossec)
 
 Installs OSSEC from source in a server-agent installation. See:
 
 http://www.ossec.net/doc/manual/installation/index.html
 
 Requirements
-====
-
+------------
+#### Platforms
 Tested on Ubuntu and ArchLinux, but should work on any Unix/Linux platform supported by OSSEC. Installation by default is done from source, so the build-essential cookbook needs to be used (see below).
 
 This cookbook doesn't configure Windows systems yet. For information on installing OSSEC on Windows, see the [free chapter](http://www.ossec.net/ossec-docs/OSSEC-book-ch2.pdf)
 
-Cookbooks
-----
+#### Chef
+- Chef 11+
 
-build-essential is required for the default installation because it compiles from source. The cookbook may require modification to support other platforms' build tools - modify it accordingly before using.
+#### Cookbooks
+- build-essential
+- apt
+- apache2
+
 
 Attributes
-====
+----------
 
 Default values are based on the defaults from OSSEC's own install.sh installation script.
 
@@ -66,25 +72,21 @@ These attributes are used to setup the OSSEC Web UI.
 * `node['ossec']['users_databag_group']` - Defaults to 'sysadmins'
 
 Recipes
-====
+-------
 
-default
-----
+###default
 
 The default recipe downloads and installs the OSSEC source and makes sure the configuration file is in place and the service is started. Use only this recipe if setting up local-only installation. The server and client recipes (below) will set their installation type and include this recipe.
 
-agent
-----
+###agent
 
 OSSEC uses the term `agent` instead of client. The agent recipe includes the `ossec::client` recipe.
 
-client
-----
+###client
 
 Configures the system as an OSSEC agent to the OSSEC server. This recipe will search for the server based on `node['ossec']['server_role']`. It will also set the `install_type` and `agent_server_ip` attributes. The ossecd user will be created with the SSH key so the server can distribute the agent key.
 
-server
-----
+###server
 
 Sets up a system to be an OSSEC server. This recipe will set the `node['ossec']['server']['maxagents']` value to 1024 if it is not set on the node (e.g., via a role). It will search for all nodes that have an `ossec` attribute and add them as an agent.
 
@@ -115,13 +117,12 @@ To manage additional agents on the server that don't run chef, or for agentless 
 
 Enable agentless monitoring in OSSEC and register the hosts on the server. Automated configuration of agentless nodes is not yet supported by this cookbook. For more information on the commands and configuration directives required in `ossec.conf`, see the [OSSEC Documentation](http://www.ossec.net/doc/manual/agent/agentless-monitoring.html)
 
-wui
-----
+###wui
 
 Installs and configures OSSEC Web UI.  Requires users to be setup in a data bag (see __Data Bags__ section below).
 
 Usage
-====
+-----
 
 The cookbook can be used to install OSSEC in one of the three types:
 
@@ -131,8 +132,7 @@ The cookbook can be used to install OSSEC in one of the three types:
 
 For local-only installations, add just `recipe[ossec]` to the node run list, or put it in a role (like a base role).
 
-Server/Agent
-----
+###Server/Agent
 
 This section describes how to use the cookbook for server/agent configurations.
 
@@ -214,10 +214,11 @@ Further reading:
 * [OSSEC Documentation](http://www.ossec.net/doc/index.html)
 
 License and Author
-====
+------------------
 
-Copyright 2010, Opscode, Inc (<legal@opscode.com>)
+Copyright 2010-2015, Chef Software, Inc (<legal@chef.io>)
 
+```
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
 You may obtain a copy of the License at
@@ -229,3 +230,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+```
