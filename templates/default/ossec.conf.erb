@@ -125,7 +125,21 @@
     <ignore>C:\WINDOWS/system32/spool</ignore>
     <ignore>C:\WINDOWS/system32/CatRoot</ignore>
   </syscheck>
+<% end -%>
+<% if @ossec['enable_zabbix_integration'] -%>
+  <command>
+    <name>zabbix-alert</name>
+    <executable>zabbix-alert.sh</executable>
+    <timeout_allowed>no</timeout_allowed>
+    <expect></expect>
+  </command>
 
+  <active-response>
+    <disabled>no</disabled>
+    <command>zabbix-alert</command>
+    <location>server</location>
+    <level>1</level>
+  </active-response>
 <% end -%>
 <% if @ossec['rootcheck'] -%>
   <rootcheck>
@@ -136,7 +150,6 @@
     <system_audit>/var/ossec/etc/shared/cis_rhel_linux_rcl.txt</system_audit>
     <system_audit>/var/ossec/etc/shared/cis_rhel5_linux_rcl.txt</system_audit>
   </rootcheck>
-
 <% end -%>
   <alerts>
     <log_alert_level>1</log_alert_level>
