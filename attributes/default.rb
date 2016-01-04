@@ -49,6 +49,7 @@ default['ossec']['user']['update_rules'] = true
 default['ossec']['user']['binary_install'] = false
 default['ossec']['user']['agent_server_ip'] = nil
 default['ossec']['user']['enable_email'] = true
+default['ossec']['user']['enable_zabbix_integration'] = false
 default['ossec']['user']['email'] = "ossec@example.com"
 default['ossec']['user']['smtp'] = "127.0.0.1"
 default['ossec']['user']['remote_syslog'] = false
