@@ -54,6 +54,17 @@ template "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl" do
   mode 0755
 end
 
+# ossec-batch-manager.pl has a hard-coded path that may need to be updated
+ruby_block "update_ossec-batch-manager" do
+  block do
+    file = Chef::Util::FileEdit.new("#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl")
+    Chef::Log.debug "Fix path in #{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl"
+    file.search_file_replace_line('^use constant AUTH_KEY_FILE', "use constant AUTH_KEY_FILE => \"#{node['ossec']['user']['dir']}/etc/client.keys\";") 
+    file.write_file
+  end
+end
+
+
 template "#{node['ossec']['user']['dir']}/etc/ossec.conf" do
   source 'ossec.conf.erb'
   owner 'root'
