@@ -8,20 +8,20 @@ describe 'ossec::wui' do
   let(:data_bag_ossec_ssh) { JSON.parse(File.read("#{data_bags_path}/ossec/ssh.json")) }
 
   cached(:chef_run) do
-    www_node = stub_node(:platform => 'ubuntu', :version => '14.04') do |node|
+    www_node = stub_node(platform: 'ubuntu', version: '14.04') do |node|
       node.set['ipaddress'] = '33.33.33.33'
       node.set['fqdn']      = 'chefspec_client.local'
     end
 
-    ChefSpec::ServerRunner.new do |node, server|
-      server.create_node(www_node, { run_list: ['ossec'] })
-      server.create_data_bag('users', {"ossec" => data_bag_users_ossec})
-      server.create_data_bag('ossec', {"ssh" => data_bag_users_ossec})
+    ChefSpec::ServerRunner.new do |_node, server|
+      server.create_node(www_node, run_list: ['ossec'])
+      server.create_data_bag('users', 'ossec' => data_bag_users_ossec)
+      server.create_data_bag('ossec', 'ssh' => data_bag_users_ossec)
     end.converge('ossec::wui')
   end
 
   before(:each) do
-    stub_command("/usr/sbin/apache2 -t").and_return(true)
+    stub_command('/usr/sbin/apache2 -t').and_return(true)
     stub_command("grep 'chefspec.local 127.0.0.1' /var/ossec/etc/client.keys").and_return(true)
     stub_command("grep 'fauxhai.local 10.0.0.2' /var/ossec/etc/client.keys").and_return(true)
   end
@@ -39,7 +39,7 @@ describe 'ossec::wui' do
   end
 
   it 'creates ossec group' do
-    expect(chef_run).to create_group('ossec').with(:members => [chef_run.node['apache']['group']])
+    expect(chef_run).to create_group('ossec').with(members: [chef_run.node['apache']['group']])
   end
 
   it 'creates apache_doc_root directory' do
@@ -63,9 +63,9 @@ describe 'ossec::wui' do
 
     it 'creates ossec-wui htaccess template' do
       expect(chef_run).to create_template(wui_htaccess_template).with(
-        :source => 'htaccess.erb',
-        :owner  => chef_run.node['apache']['user'],
-        :group  => chef_run.node['apache']['group']
+        source: 'htaccess.erb',
+        owner: chef_run.node['apache']['user'],
+        group: chef_run.node['apache']['group']
       )
     end
 
@@ -79,9 +79,9 @@ describe 'ossec::wui' do
 
     it 'creates ossec htpasswd template' do
       expect(chef_run).to create_template(ossec_htpasswd_template).with(
-        :source => 'htpasswd.erb',
-        :owner  => chef_run.node['apache']['user'],
-        :group  => chef_run.node['apache']['group']
+        source: 'htpasswd.erb',
+        owner: chef_run.node['apache']['user'],
+        group: chef_run.node['apache']['group']
       )
     end
 

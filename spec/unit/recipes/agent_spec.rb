@@ -6,8 +6,8 @@ describe 'ossec::agent' do
   let(:data_bag_ossec_ssh) { JSON.parse(File.read("#{data_bags_path}/ossec/ssh.json")) }
 
   cached(:chef_run) do
-    ChefSpec::ServerRunner.new do |node, server|
-      server.create_data_bag('ossec', {"ssh" => data_bag_ossec_ssh})
+    ChefSpec::ServerRunner.new do |_node, server|
+      server.create_data_bag('ossec', 'ssh' => data_bag_ossec_ssh)
     end.converge('ossec::agent')
   end
 
