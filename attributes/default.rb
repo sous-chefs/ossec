@@ -57,6 +57,7 @@ default['ossec']['user']['firewall_response'] = true
 default['ossec']['user']['pf'] = false
 default['ossec']['user']['pf_table'] = false
 default['ossec']['user']['white_list'] = []
+default['ossec']['user']['zabbix_alert_level'] = 8
 
 # web-ui only
 default['ossec']['wui']['checksum']     = "142febadfd4b0de5a13ebd93c13eedfbee5f1899b6ee71c248054c14f47b8089"
