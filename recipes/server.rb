@@ -32,7 +32,7 @@ agent_manager = "#{node['ossec']['user']['dir']}/bin/ossec-batch-manager.pl"
 
 ssh_hosts = Array.new
 
-search_string = "ossec:[* TO *]"
+search_string = "roles:#{node['ossec']['client_role']}"
 Chef::Log.debug("search_string:#{search_string}")
 
 
