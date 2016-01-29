@@ -50,7 +50,6 @@ default['ossec']['user']['update_rules'] = true
 default['ossec']['user']['binary_install'] = false
 default['ossec']['user']['agent_server_ip'] = nil
 default['ossec']['user']['enable_email'] = true
-default['ossec']['user']['enable_zabbix_integration'] = false
 default['ossec']['user']['email'] = "ossec@example.com"
 default['ossec']['user']['smtp'] = "127.0.0.1"
 default['ossec']['user']['remote_syslog'] = false
@@ -58,7 +57,14 @@ default['ossec']['user']['firewall_response'] = true
 default['ossec']['user']['pf'] = false
 default['ossec']['user']['pf_table'] = false
 default['ossec']['user']['white_list'] = []
-default['ossec']['user']['zabbix_alert_level'] = 8
+
+# External alerting
+default['ossec']['user']['enable_zabbix_integration'] = false
+default['ossec']['user']['zabbix_alert_level'] = 1
+default['ossec']['user']['enable_syslog_integration'] = false
+default['ossec']['user']['syslog_server_address'] = ''
+default['ossec']['user']['syslog_server_port'] = 514
+default['ossec']['user']['syslog_alert_level'] = 1
 
 # web-ui only
 default['ossec']['wui']['checksum']     = "142febadfd4b0de5a13ebd93c13eedfbee5f1899b6ee71c248054c14f47b8089"

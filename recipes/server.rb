@@ -22,6 +22,13 @@ node.set['ossec']['server']['maxagents']  = 1024
 
 include_recipe "ossec"
 
+# External syslog alerting service has to be enabled before restarting ossec service, if configured
+if node['ossec']['user']['enable_syslog_integration']
+  execute 'enable syslog client' do
+    command "#{node['ossec']['user']['dir']}/bin/ossec-control enable client-syslog"
+  end
+end
+
 # It's hard to create robust conditionals here, see also
 # http://tickets.opscode.com/browse/COOK-1828
 log 'restart ossec service' do

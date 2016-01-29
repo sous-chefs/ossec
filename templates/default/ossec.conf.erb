@@ -141,6 +141,12 @@
     <level><%= @ossec['zabbix_alert_level'] %></level>
   </active-response>
 <% end -%>
+<% if @ossec['enable_syslog_integration'] -%>
+  <syslog_output>
+    <level><%= @ossec['syslog_alert_level'] %></level>
+    <server><%= @ossec['syslog_server_address'] %></server>
+    <port><%= @ossec['syslog_server_port'] %></port>
+  </syslog_output>
 <% if @ossec['rootcheck'] -%>
   <rootcheck>
     <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
