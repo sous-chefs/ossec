@@ -147,6 +147,7 @@
     <server><%= @ossec['syslog_server_address'] %></server>
     <port><%= @ossec['syslog_server_port'] %></port>
   </syslog_output>
+<% end -%>
 <% if @ossec['rootcheck'] -%>
   <rootcheck>
     <rootkit_files>/var/ossec/etc/shared/rootkit_files.txt</rootkit_files>
