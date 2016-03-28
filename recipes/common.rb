@@ -2,7 +2,7 @@
 # Cookbook Name:: ossec
 # Recipe:: common
 #
-# Copyright 2010, Opscode, Inc.
+# Copyright 2010-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -90,10 +90,7 @@ end
 service 'stop ossec' do
   service_name platform_family?('debian') ? 'ossec' : 'ossec-hids'
   action :nothing
-
-  %w( disable stop ).each do |action|
-    subscribes action, 'package[ossec]', :immediately
-  end
+  subscribes :stop, 'package[ossec]', :immediately
 end
 
 service 'ossec' do
