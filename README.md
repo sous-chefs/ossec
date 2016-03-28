@@ -10,9 +10,9 @@ Installs OSSEC from source in a server-agent installation. See:
 
 ### Platforms
 
-Tested on Ubuntu and ArchLinux, but should work on any Unix/Linux platform supported by OSSEC. Installation by default is done from source, so the build-essential cookbook needs to be used (see below).
-
-This cookbook doesn't configure Windows systems yet. For information on installing OSSEC on Windows, see the [free chapter](http://www.ossec.net/ossec-docs/OSSEC-book-ch2.pdf)
+- Ubuntu / Debian
+- RHEL and derivatives
+- Fedora
 
 ### Chef
 
