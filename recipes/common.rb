@@ -88,7 +88,7 @@ end
 # abort immediately. Explicitly stopping the service here after
 # installation allows Chef to start it when client.keys has content.
 service 'stop ossec' do
-  service_name 'ossec-hids' unless platform_family?('debian')
+  service_name platform_family?('debian') ? 'ossec' : 'ossec-hids'
   action :nothing
 
   %w( disable stop ).each do |action|
@@ -97,7 +97,7 @@ service 'stop ossec' do
 end
 
 service 'ossec' do
-  service_name 'ossec-hids' unless platform_family?('debian')
+  service_name platform_family?('debian') ? 'ossec' : 'ossec-hids'
   supports status: true, restart: true
   action [:enable, :start]
 
