@@ -2,7 +2,7 @@
 # Cookbook Name:: ossec
 # Recipe:: server
 #
-# Copyright 2010-2015, Chef Software, Inc.
+# Copyright 2010-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -53,14 +53,14 @@ ossec_key = if node['ossec']['data_bag']['encrypted']
 directory "#{node['ossec']['dir']}/.ssh" do
   owner 'root'
   group 'ossec'
-  mode 0750
+  mode '0750'
 end
 
 template "#{node['ossec']['dir']}/.ssh/id_rsa" do
   source 'ssh_key.erb'
   owner 'root'
   group 'ossec'
-  mode 0600
+  mode '0600'
   variables(key: ossec_key['privkey'])
 end
 
