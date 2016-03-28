@@ -22,9 +22,6 @@ platforms:
     run_list: apt::default
 
 suites:
-- name: default
-  run_list:
-    - recipe[ossec]
 - name: client
   run_list:
     - recipe[ossec::client]
