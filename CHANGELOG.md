@@ -5,6 +5,7 @@
 - Completely refactored how configs are handled. Attributes in node['ossec']['conf'] are converted to XML for the ossec.conf file. See the Readme for details and examples.
 - The WUI recipe has been removed as the WUI project is abandoned
 - Removed arch as a supported platform
+- The default recipe has been renamed local.rb for local type installs
 
 ## Other Changes
 

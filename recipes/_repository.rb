@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ossec
-# Recipe:: repository
+# Recipe:: _repository
 #
 # Copyright 2015-2016, Chef Software, Inc.
 #

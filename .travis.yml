@@ -12,12 +12,24 @@ services: docker
 
 env:
   matrix:
-  - INSTANCE=default-ubuntu-1204
-  - INSTANCE=default-ubuntu-1404
-  - INSTANCE=default-centos-6
-  - INSTANCE=default-centos-7
-  - INSTANCE=default-debian-7
-  - INSTANCE=default-debian-8
+  - INSTANCE=local-ubuntu-1204
+  - INSTANCE=local-ubuntu-1404
+  - INSTANCE=local-centos-6
+  - INSTANCE=local-centos-7
+  - INSTANCE=local-debian-7
+  - INSTANCE=local-debian-8
+  - INSTANCE=server-ubuntu-1204
+  - INSTANCE=server-ubuntu-1404
+  - INSTANCE=server-centos-6
+  - INSTANCE=server-centos-7
+  - INSTANCE=server-debian-7
+  - INSTANCE=server-debian-8
+  - INSTANCE=client-ubuntu-1204
+  - INSTANCE=client-ubuntu-1404
+  - INSTANCE=client-centos-6
+  - INSTANCE=client-centos-7
+  - INSTANCE=client-debian-7
+  - INSTANCE=client-debian-8
 
 # Don't `bundle install`
 install: echo "skip bundle install"

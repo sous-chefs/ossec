@@ -66,6 +66,10 @@ suites:
   run_list:
     - recipe[ossec::client]
   data_bags_path: 'test/fixtures/data_bags'
+- name: local
+  run_list:
+    - recipe[ossec::local]
+  data_bags_path: 'test/fixtures/data_bags'
 - name: server
   run_list:
     - recipe[ossec::server]

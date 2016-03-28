@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ossec
-# Recipe:: common
+# Recipe:: _common
 #
 # Copyright 2010-2016, Chef Software, Inc.
 #
@@ -17,10 +17,12 @@
 # limitations under the License.
 #
 
-ruby_block 'ossec install_type' do
+ruby_block 'set ossec install_type' do
   block do
-    if node.recipes.include?('ossec::default')
+    if node.recipes.include?('ossec::local')
       type = 'local'
+    elsif node.recipes.include?('ossec::server')
+      type = 'server'
     else
       type = nil
 
@@ -97,9 +99,4 @@ service 'ossec' do
   service_name platform_family?('debian') ? 'ossec' : 'ossec-hids'
   supports status: true, restart: true
   action [:enable, :start]
-
-  not_if do
-    (node['ossec']['install_type'] != 'local' && !File.size?("#{node['ossec']['dir']}/etc/client.keys")) ||
-      (node['ossec']['install_type'] == 'agent' && node['ossec']['agent_server_ip'].nil?)
-  end
 end

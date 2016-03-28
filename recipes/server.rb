@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'ossec::install_server'
+include_recipe 'ossec::_install_server'
 
 ssh_hosts = []
 
@@ -64,7 +64,7 @@ template "#{node['ossec']['dir']}/.ssh/id_rsa" do
   variables(key: ossec_key['privkey'])
 end
 
-include_recipe 'ossec::common'
+include_recipe 'ossec::_common'
 
 cron 'distribute-ossec-keys' do
   minute '0'
