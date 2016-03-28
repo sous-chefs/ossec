@@ -53,14 +53,14 @@ ossec_key = if node['ossec']['data_bag']['encrypted']
 directory "#{node['ossec']['dir']}/.ssh" do
   owner 'root'
   group 'ossec'
-  mode 0750
+  mode '0750'
 end
 
 template "#{node['ossec']['dir']}/.ssh/id_rsa" do
   source 'ssh_key.erb'
   owner 'root'
   group 'ossec'
-  mode 0600
+  mode '0600'
   variables(key: ossec_key['privkey'])
 end
 

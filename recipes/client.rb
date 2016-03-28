@@ -45,21 +45,21 @@ ossec_key = if node['ossec']['data_bag']['encrypted']
 directory "#{node['ossec']['dir']}/.ssh" do
   owner 'ossec'
   group 'ossec'
-  mode 0750
+  mode '0750'
 end
 
 template "#{node['ossec']['dir']}/.ssh/authorized_keys" do
   source 'ssh_key.erb'
   owner 'ossec'
   group 'ossec'
-  mode 0600
+  mode '0600'
   variables(key: ossec_key['pubkey'])
 end
 
 file "#{node['ossec']['dir']}/etc/client.keys" do
   owner 'ossec'
   group 'ossec'
-  mode 0660
+  mode '0660'
 end
 
 include_recipe 'ossec::common'
