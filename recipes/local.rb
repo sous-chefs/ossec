@@ -17,5 +17,5 @@
 # limitations under the License.
 #
 
-include_recipe 'ossec::install_server'
-include_recipe 'ossec::common'
+include_recipe 'ossec::_install_server'
+include_recipe 'ossec::_common'

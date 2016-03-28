@@ -17,3 +17,7 @@ end
 group :kitchen_vagrant do
   gem 'kitchen-vagrant', '~> 0.19'
 end
+
+group :kitchen_inspec do
+  gem 'kitchen-inspec'
+end

@@ -6,6 +6,9 @@ driver:
   # privileged is required otherwise the container doesn't boot right
   privileged: true
 
+verifier:
+  name: inspec
+
 platforms:
 - name: centos-6
   driver:
@@ -59,16 +62,15 @@ platforms:
       - /usr/bin/apt-get install apt-transport-https net-tools -y
 
 suites:
-- name: default
-  run_list: ["recipe[ossec]"]
-  attributes: {}
-- name: wui
-  driver_config:
-    network:
-      - ["private_network", {ip: "192.168.33.33"}]
+- name: client
   run_list:
-    - "recipe[ossec::server]"
-    - "recipe[ossec::wui]"
-  attributes:
-    dev_mode: true
-  data_bags_path: 'test/integration/default/data_bags'
+    - recipe[ossec::client]
+  data_bags_path: 'test/fixtures/data_bags'
+- name: local
+  run_list:
+    - recipe[ossec::local]
+  data_bags_path: 'test/fixtures/data_bags'
+- name: server
+  run_list:
+    - recipe[ossec::server]
+  data_bags_path: 'test/fixtures/data_bags'

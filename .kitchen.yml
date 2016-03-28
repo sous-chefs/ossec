@@ -4,6 +4,9 @@ driver:
 provisioner:
   name: chef_zero
 
+verifier:
+  name: inspec
+
 platforms:
   - name: centos-5.11
   - name: centos-6.7
@@ -22,13 +25,15 @@ platforms:
     run_list: apt::default
 
 suites:
-- name: default
-  run_list:
-    - recipe[ossec]
 - name: client
   run_list:
     - recipe[ossec::client]
+  data_bags_path: 'test/fixtures/data_bags'
+- name: local
+  run_list:
+    - recipe[ossec::local]
+  data_bags_path: 'test/fixtures/data_bags'
 - name: server
   run_list:
     - recipe[ossec::server]
-  data_bags_path: 'test/integration/default/data_bags'
+  data_bags_path: 'test/fixtures/data_bags'

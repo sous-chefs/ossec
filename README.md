@@ -101,25 +101,7 @@ This produces:
 
 ## Recipes
 
-### repository
-
-Adds the OSSEC repository to the package manager. This recipe is included by others and should not be used directly. For highly customised setups, you should use `ossec::install_agent` or `ossec::install_server` instead.
-
-### install_agent
-
-Installs the agent packages but performs no explicit configuation.
-
-### install_server
-
-Install the server packages but performs no explicit configuation.
-
-### common
-
-Puts the configuration file in place and starts the (agent or server) service. This recipe is included by other recipes and generally should not be used directly.
-
-Note that the service will not be started if the client.keys file is missing or empty. For agents, this results in an error. For servers, this prevents ossec-remoted from starting, resulting in agents being unable to connect. Once client.keys does exist with content, simply perform another chef-client run to start the service.
-
-### default
+### local
 
 Runs `ossec::install_server` and then configures for local-only use. Do not mix this recipe with the others below.
 
@@ -163,6 +145,24 @@ To manage additional agents on the server that don't run chef, or for agentless 
 ```
 
 Enable agentless monitoring in OSSEC and register the hosts on the server. Automated configuration of agentless nodes is not yet supported by this cookbook. For more information on the commands and configuration directives required in `ossec.conf`, see the [OSSEC Documentation](http://www.ossec.net/doc/manual/agent/agentless-monitoring.html)
+
+### _repository
+
+Adds the OSSEC repository to the package manager. This recipe is included by others and should not be used directly. For highly customized setups, you should use `ossec::install_agent` or `ossec::install_server` instead.
+
+### _install_agent
+
+Installs the agent packages but performs no explicit configuration.
+
+### _install_server
+
+Install the server packages but performs no explicit configuration.
+
+### _common
+
+Puts the configuration file in place and starts the (agent or server) service. This recipe is included by other recipes and generally should not be used directly.
+
+Note that the service will not be started if the client.keys file is missing or empty. For agents, this results in an error. For servers, this prevents ossec-remoted from starting, resulting in agents being unable to connect. Once client.keys does exist with content, simply perform another chef-client run to start the service.
 
 ## Usage
 

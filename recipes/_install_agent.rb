@@ -1,6 +1,6 @@
 #
 # Cookbook Name:: ossec
-# Recipe:: install_agent
+# Recipe:: _install_agent
 #
 # Copyright 2015-2016, Chef Software, Inc.
 #
@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'ossec::repository'
+include_recipe 'ossec::_repository'
 
 package 'ossec' do
   package_name value_for_platform_family('debian' => 'ossec-hids-agent', 'default' => 'ossec-hids-client')
