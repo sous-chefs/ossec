@@ -50,7 +50,7 @@ default['ossec']['conf']['all']['rootcheck']['rootkit_trojans'] = "#{node['ossec
 
   default['ossec']['conf'][type]['alerts']['email_alert_level'] = 7
   default['ossec']['conf'][type]['alerts']['log_alert_level'] = 1
-  default['ossec']['conf'][type]['alerts']['use_geoip'] = false
+  default['ossec']['conf'][type]['alerts']['use_geoip'] = false unless platform_family?('debian')
 end
 
 default['ossec']['conf']['server']['remote']['connection'] = 'secure'
