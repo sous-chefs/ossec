@@ -46,7 +46,7 @@ end
 file "#{node['ossec']['dir']}/etc/ossec.conf" do
   owner 'root'
   group 'ossec'
-  mode 0440
+  mode '0440'
   manage_symlink_source true
   notifies :restart, 'service[ossec]'
 
@@ -62,7 +62,7 @@ end
 file "#{node['ossec']['dir']}/etc/shared/agent.conf" do
   owner 'root'
   group 'ossec'
-  mode 0440
+  mode '0440'
   notifies :restart, 'service[ossec]'
 
   # Even if agent.cont is not appropriate for this kind of

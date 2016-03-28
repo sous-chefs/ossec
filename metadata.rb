@@ -10,7 +10,7 @@ version          '1.0.5'
   depends pkg
 end
 
-%w( debian ubuntu redhat centos fedora ).each do |os|
+%w( debian ubuntu redhat centos fedora scientific oracle amazon ).each do |os|
   supports os
 end
 
