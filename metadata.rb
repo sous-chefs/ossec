@@ -6,11 +6,11 @@ description      'Installs and onfigures ossec'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.0.5'
 
-%w( build-essential apt apache2 ).each do |pkg|
+%w( apt yum-atomic ).each do |pkg|
   depends pkg
 end
 
-%w( debian ubuntu arch redhat centos fedora scientific oracle amazon ).each do |os|
+%w( debian ubuntu redhat centos fedora ).each do |os|
   supports os
 end
 
