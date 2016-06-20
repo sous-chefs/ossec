@@ -2,7 +2,7 @@ require 'spec_helper'
 require 'json'
 
 describe 'ossec::client' do
-  let(:data_bags_path) { File.expand_path('../../../../test/integration/default/data_bags', __FILE__) }
+  let(:data_bags_path) { File.expand_path('../../../../test/fixtures/data_bags', __FILE__) }
   let(:data_bag_ossec_ssh) { JSON.parse(File.read("#{data_bags_path}/ossec/ssh.json")) }
 
   cached(:chef_run) do
