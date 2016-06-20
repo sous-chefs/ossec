@@ -2,7 +2,7 @@
 # Cookbook Name:: ossec
 # Recipe:: common
 #
-# Copyright 2010, Opscode, Inc.
+# Copyright 2010-2016, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -17,9 +17,9 @@
 # limitations under the License.
 #
 
-ruby_block 'ossec install_type' do
+ruby_block 'ossec install_type' do # ~FC014
   block do
-    if node.recipes.include?('ossec::default')
+    if node['recipes'].include?('ossec::default')
       type = 'local'
     else
       type = nil
@@ -87,7 +87,7 @@ end
 # client.keys file will cause a server not to listen and an agent to
 # abort immediately. Explicitly stopping the service here after
 # installation allows Chef to start it when client.keys has content.
-service 'stop ossec' do
+service 'stop ossec' do # ~FC037
   service_name platform_family?('debian') ? 'ossec' : 'ossec-hids'
   action :nothing
 
