@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: ossec
+# Cookbook:: ossec
 # Recipe:: server
 #
-# Copyright 2010-2016, Chef Software, Inc.
+# Copyright:: 2010-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -37,7 +37,7 @@ template '/usr/local/bin/dist-ossec-keys.sh' do
   source 'dist-ossec-keys.sh.erb'
   owner 'root'
   group 'root'
-  mode 0755
+  mode '755'
   variables(ssh_hosts: ssh_hosts.sort)
   not_if { ssh_hosts.empty? }
 end
