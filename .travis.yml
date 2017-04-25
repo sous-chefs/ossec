@@ -40,3 +40,9 @@ script:
   - /opt/chefdk/embedded/bin/foodcritic . --exclude spec -f any
   - /opt/chefdk/embedded/bin/rspec
   - KITCHEN_LOCAL_YAML=.kitchen.docker.yml /opt/chefdk/embedded/bin/kitchen verify ${INSTANCE}
+
+matrix:
+  include:
+    - script:
+      - /opt/chefdk/bin/chef exec delivery local all
+      env: UNIT_AND_LINT=1
