@@ -1,6 +1,7 @@
 # ossec cookbook
 
 [![Cookbook Version](https://img.shields.io/cookbook/v/ossec.svg)](https://supermarket.chef.io/cookbooks/ossec)
+[![Build Status](https://travis-ci.org/sous-chefs/ossec.svg?branch=master)](https://travis-ci.org/sous-chefs/ossec)
 
 Installs OSSEC from source in a server-agent installation. See:
 
