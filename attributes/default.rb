@@ -30,7 +30,7 @@ default['ossec']['data_bag']['ssh']        = 'ssh'
 
 # ossec-batch-manager.pl location varies
 default['ossec']['agent_manager'] = value_for_platform_family(
-  %w( rhel fedora suse ) => '/usr/share/ossec/contrib/ossec-batch-manager.pl',
+  %w( rhel fedora suse amazon ) => '/usr/share/ossec/contrib/ossec-batch-manager.pl',
   'default' => "#{node['ossec']['dir']}/contrib/ossec-batch-manager.pl"
 )
 
