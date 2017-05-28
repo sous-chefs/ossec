@@ -43,4 +43,8 @@ describe 'ossec::client' do
       mode: '0660'
     )
   end
+
+  it 'installs agent package' do
+    expect(chef_run).to install_package('ossec-hids-agent')
+  end
 end
