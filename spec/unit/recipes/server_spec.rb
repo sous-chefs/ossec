@@ -7,8 +7,8 @@ describe 'ossec::server' do
 
   cached(:chef_run) do
     www_node = stub_node(platform: 'ubuntu', version: '14.04') do |node|
-      node.set['ipaddress'] = '33.33.33.33'
-      node.set['fqdn']      = 'chefspec_client.local'
+      node.normal['ipaddress'] = '33.33.33.33'
+      node.normal['fqdn']      = 'chefspec_client.local'
     end
 
     ChefSpec::ServerRunner.new do |_node, server|
