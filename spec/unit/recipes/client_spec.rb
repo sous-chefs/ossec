@@ -11,42 +11,36 @@ describe 'ossec::client' do
     end.converge('ossec::client')
   end
 
-  it 'includes ossec::client recipe' do
-    expect(chef_run).to include_recipe('ossec')
+  it 'includes ossec::common recipe' do
+    expect(chef_run).to include_recipe('ossec::client')
   end
 
-  it 'creates ossecd user' do
-    expect(chef_run).to create_user('ossecd').with(
-      comment: 'OSSEC Distributor',
-      shell: '/bin/bash',
-      system: true,
-      gid: 'ossec',
-      home: chef_run.node['ossec']['user']['dir']
-    )
+  it 'includes ossec::install_agent recipe' do
+    expect(chef_run).to include_recipe('ossec::install_agent')
   end
 
   it 'creates ossecd user .ssh directory' do
-    expect(chef_run).to create_directory("#{chef_run.node['ossec']['user']['dir']}/.ssh").with(
-      owner: 'ossecd',
+    expect(chef_run).to create_directory("#{chef_run.node['ossec']['dir']}/.ssh").with(
+      owner: 'ossec',
       group: 'ossec',
-      mode: 0750
+      mode: '0750'
     )
   end
 
   it 'creates ossec user authorized_keys template' do
-    expect(chef_run).to create_template("#{chef_run.node['ossec']['user']['dir']}/.ssh/authorized_keys").with(
+    expect(chef_run).to create_template("#{chef_run.node['ossec']['dir']}/.ssh/authorized_keys").with(
       source: 'ssh_key.erb',
-      owner: 'ossecd',
+      owner: 'ossec',
       group: 'ossec',
-      mode: 0600
+      mode: '0600'
     )
   end
 
   it 'creates ossec user /etc/client.keys file' do
-    expect(chef_run).to create_file("#{chef_run.node['ossec']['user']['dir']}/etc/client.keys").with(
-      owner: 'ossecd',
+    expect(chef_run).to create_file("#{chef_run.node['ossec']['dir']}/etc/client.keys").with(
+      owner: 'ossec',
       group: 'ossec',
-      mode: 0660
+      mode: '0660'
     )
   end
 end
