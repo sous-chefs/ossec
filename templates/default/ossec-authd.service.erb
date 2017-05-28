@@ -1,0 +1,8 @@
+[Unit]
+Description=OSSEC authd
+
+[Service]
+EnvironmentFile=/etc/ossec-init.conf
+Environment=DIRECTORY=/var/ossec
+
+ExecStart=/usr/bin/env ${DIRECTORY}/bin/ossec-authd -p <%= @port %> <%= '-i' if @ip_address %> -x <%= @certificate %> -k <%= @key %> <%= "-v #{@ca}" if @ca %>

@@ -165,6 +165,14 @@ To manage additional agents on the server that don't run chef, or for agentless 
 
 Enable agentless monitoring in OSSEC and register the hosts on the server. Automated configuration of agentless nodes is not yet supported by this cookbook. For more information on the commands and configuration directives required in `ossec.conf`, see the [OSSEC Documentation](http://www.ossec.net/doc/manual/agent/agentless-monitoring.html)
 
+### agent_auth
+
+If you do not wish to distribute agent keys via SSH then the authd mechanism provides an alternative. Set the `agent_server_ip` attribute manually and this recipe will attempt to register with the given server running ossec-authd. To allow registration with a new server after changing `agent_server_ip`, delete the client.keys file and rerun the recipe.
+
+### authd
+
+For a server to accept agent registrations, it needs to be running ossec-authd. This recipe installs an init script for it (systemd only for now) and will attempt to start it once the mandatory SSL certificate and key have been put in place. From OSSEC 2.9, you can also set a CA certificate to validate agents against.
+
 ## Usage
 
 The cookbook can be used to install OSSEC in one of the three types:

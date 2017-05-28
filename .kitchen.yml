@@ -34,3 +34,19 @@ suites:
   run_list:
     - recipe[ossec::server]
   data_bags_path: 'test/fixtures/data_bags'
+- name: agent_auth
+  run_list:
+    - recipe[ossec::agent_auth]
+  attributes:
+    ossec:
+      agent_server_ip: 10.0.2.2
+- name: authd
+  run_list:
+    - recipe[ossec::authd]
+  driver_config:
+    network:
+    - ['forwarded_port', { guest: 1514, host: 1514, protocol: 'udp' }]
+    - ['forwarded_port', { guest: 1515, host: 1515, protocol: 'tcp' }]
+  includes:
+    - centos-7.2
+    - debian-8.4
