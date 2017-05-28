@@ -19,6 +19,10 @@ describe 'ossec::client' do
     expect(chef_run).to include_recipe('ossec::install_agent')
   end
 
+  it 'includes ossec::repository recipe' do
+    expect(chef_run).to include_recipe('ossec::repository')
+  end
+
   it 'creates ossecd user .ssh directory' do
     expect(chef_run).to create_directory("#{chef_run.node['ossec']['dir']}/.ssh").with(
       owner: 'ossec',

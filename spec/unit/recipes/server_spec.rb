@@ -22,8 +22,20 @@ describe 'ossec::server' do
     stub_command("grep 'fauxhai.local 10.0.0.2' /var/ossec/etc/client.keys").and_return(true)
   end
 
-  it 'includes ossec::client recipe' do
-    expect(chef_run).to include_recipe('ossec')
+  it 'includes ossec::install_server recipe' do
+    expect(chef_run).to include_recipe('ossec::install_server')
+  end
+
+  it 'includes ossec::repository recipe' do
+    expect(chef_run).to include_recipe('ossec::repository')
+  end
+
+  it 'includes ossec::common recipe' do
+    expect(chef_run).to include_recipe('ossec::repository')
+  end
+
+  it 'installs the server package' do
+    expect(chef_run).to install_package('ossec-hids')
   end
 
   it 'creates /usr/local/bin/dist-ossec-keys.sh template' do
@@ -31,24 +43,24 @@ describe 'ossec::server' do
       source: 'dist-ossec-keys.sh.erb',
       owner: 'root',
       group: 'root',
-      mode: 0755
+      mode: '0755'
     )
   end
 
   it 'creates ossec user .ssh directory' do
-    expect(chef_run).to create_directory("#{chef_run.node['ossec']['user']['dir']}/.ssh").with(
+    expect(chef_run).to create_directory("#{chef_run.node['ossec']['dir']}/.ssh").with(
       owner: 'root',
       group: 'ossec',
-      mode: 0750
+      mode: '0750'
     )
   end
 
   it 'creates ossec ssh id_rsa key template' do
-    expect(chef_run).to create_template("#{chef_run.node['ossec']['user']['dir']}/.ssh/id_rsa").with(
+    expect(chef_run).to create_template("#{chef_run.node['ossec']['dir']}/.ssh/id_rsa").with(
       source: 'ssh_key.erb',
       owner: 'root',
       group: 'ossec',
-      mode: 0600
+      mode: '0600'
     )
   end
 end
