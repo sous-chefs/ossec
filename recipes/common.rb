@@ -34,7 +34,7 @@ ruby_block 'ossec install_type' do # ~FC014
       end
     end
 
-    node.set['ossec']['install_type'] = type
+    node.normal['ossec']['install_type'] = type
   end
 end
 
