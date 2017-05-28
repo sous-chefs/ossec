@@ -18,7 +18,7 @@
 #
 
 case node['platform_family']
-when 'fedora', 'rhel', 'amazon'
+when %w(centos redhat scientific oracle fedora amazon)
   include_recipe 'yum-atomic'
 when 'debian'
   package 'lsb-release'
