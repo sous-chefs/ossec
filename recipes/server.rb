@@ -25,7 +25,9 @@ search_string = 'ossec:[* TO *]'
 search_string << " AND chef_environment:#{node['ossec']['server_env']}" if node['ossec']['server_env']
 search_string << " AND NOT role:#{node['ossec']['server_role']} AND NOT fqdn:#{node['fqdn']}"
 
-search(:node, search_string) do |n|
+filter_keys = { 'fqdn' => ['fqdn'], 'ipaddress' => ['ipaddress'] }
+
+search(:node, search_string, filter_result: filter_keys).each do |n|
   ssh_hosts << n['ipaddress'] if n['keys']
 
   execute "#{node['ossec']['agent_manager']} -a --ip #{n['ipaddress']} -n #{n['fqdn'][0..31]}" do
