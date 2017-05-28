@@ -40,7 +40,7 @@ end
 
 # Gyoku renders the XML.
 chef_gem 'gyoku' do
-  compile_time false if respond_to?(:compile_time)
+  compile_time false
 end
 
 file "#{node['ossec']['dir']}/etc/ossec.conf" do
