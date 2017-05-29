@@ -53,7 +53,19 @@ class Chef
 
       def self.ossec_to_xml(hash)
         require 'gyoku'
-        Gyoku.xml object_to_ossec(hash)
+        xml = Gyoku.xml object_to_ossec(hash)
+        xml_pretty_print(xml)
+      end
+
+      # => The Gyoku version with Pretty Print is not on Rubygems
+      def self.xml_pretty_print(xml)
+        require 'rexml/document'
+        result = ''
+        formatter = REXML::Formatters::Pretty.new 2
+        formatter.compact = true
+        doc = REXML::Document.new xml
+        formatter.write doc, result
+        result
       end
     end
   end
