@@ -15,9 +15,9 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-ruby_block 'ossec install_type' do # ~FC014
+# TODO: we don't want to do this anymore!
+ruby_block 'ossec install_type' do
   block do
     if node['recipes'].include?('ossec::default')
       type = 'local'

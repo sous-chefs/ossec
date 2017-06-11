@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-include_recipe 'ossec::install_server'
+ossec_server_install 'server'
 include_recipe 'ossec::common'
 
 authd = node['ossec']['authd']
