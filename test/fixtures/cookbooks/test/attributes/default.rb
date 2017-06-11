@@ -17,17 +17,6 @@
 # limitations under the License.
 #
 
-# general settings
-default['ossec']['dir']             = '/var/ossec'
-default['ossec']['server_role']     = 'ossec_server'
-default['ossec']['server_env']      = nil
-default['ossec']['agent_server_ip'] = nil
-
-# data bag configuration
-default['ossec']['data_bag']['encrypted']  = false
-default['ossec']['data_bag']['name']       = 'ossec'
-default['ossec']['data_bag']['ssh']        = 'ssh'
-
 # ossec-batch-manager.pl location varies
 default['ossec']['agent_manager'] = value_for_platform_family(
   %w( rhel fedora suse amazon ) => '/usr/share/ossec/contrib/ossec-batch-manager.pl',

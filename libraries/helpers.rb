@@ -15,16 +15,13 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
 class Chef
   module OSSEC
     module Helpers
       # Gyoku looks for a symbol called :content! but Chef attributes
       # are always stringified. We can't just call symbolize_keys
-      # because we need to recurse through the hash structure. Doing
-      # this also gives us the opportunity to convert true/false to
-      # yes/no, which is handy.
+      # because we need to recurse through the hash structure.
       def self.object_to_ossec(object)
         case object
         when Hash
@@ -40,10 +37,6 @@ class Chef
           object.map! do |e|
             object_to_ossec(e)
           end
-        when TrueClass
-          'yes'
-        when FalseClass
-          'no'
         when NilClass
           ''
         else

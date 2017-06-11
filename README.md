@@ -20,24 +20,27 @@ Installs OSSEC from source in a server-agent installation. See:
 
 ### Cookbooks
 
-- apt
 - yum-atomic
 
 ## Attributes
 
-- `node['ossec']['dir']` - Installation directory for OSSEC, default `/var/ossec`. All existing packages use this directory so you should not change this.
 - `node['ossec']['server_role']` - When using server/agent setup, this role is used to search for the OSSEC server, default `ossec_server`.
 - `node['ossec']['server_env']` - When using server/agent setup, this value will scope the role search to the specified environment, default nil.
 - `node['ossec']['agent_server_ip']` - The IP of the OSSEC server. The client recipe will attempt to determine this value via search. Default is nil, only required for agent installations.
-- `node['ossec']['data_bag']['encrypted']` - Boolean value which indicates whether or not the OSSEC data bag is encrypted
-- `node['ossec']['data_bag']['name']` - The name of the data bag to use
-- `node['ossec']['data_bag']['ssh']` - The name of the data bag item which contains the OSSEC keys
 
 ### ossec.conf
 
 OSSEC's configuration is mainly read from an XML file called `ossec.conf`. You can directly control the contents of this file using node attributes under `node['ossec']['conf']`. These attributes are mapped to XML using Gyoku. See the [Gyoku site](https://github.com/savonrb/gyoku) for details on how this works.
 
 Chef applies attributes from all attribute files regardless of which recipes were executed. In order to make wrapper cookbooks easier to write, `node['ossec']['conf']` is divided into the three installation types mentioned below, `local`, `server`, and `agent`. You can also set attributes under `all` to apply settings across all installation types. The typed attributes are automatically deep merged over the `all` attributes in the normal Chef manner.
+
+
+`ossec_conf_local`
+
+`ossec_conf_server`
+
+`ossec_conf_agent`
+
 
 `true` and `false` values are automatically mapped to `"yes"` and `"no"` as OSSEC expects the latter.
 
