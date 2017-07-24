@@ -35,7 +35,7 @@ describe 'ossec::server' do
   end
 
   it 'installs the server package' do
-    expect(chef_run).to install_package('ossec-hids')
+    expect(chef_run).to install_package('ossec-hids-server')
   end
 
   it 'creates ossec user .ssh directory' do
