@@ -6,9 +6,8 @@ description      'Installs and configures ossec'
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version          '1.0.5'
 
-%w( apt yum-atomic ).each do |pkg|
-  depends pkg
-end
+depends 'compat_resource', '>= 12.14.6'
+depends 'yum-atomic'
 
 %w( debian ubuntu redhat centos fedora scientific oracle amazon ).each do |os|
   supports os
