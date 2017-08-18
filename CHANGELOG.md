@@ -1,3 +1,24 @@
+# v2.0.0
+
+## Bug
+
+- [6cb5e39] Replace `rc` with `systemd` service configuration for Arch Linux
+- [3b581e6] Find ossec_client nodes in Chef
+- [0836d80] Fix `service_name` on Debian
+
+## Improvement
+
+- [a823be7] Add Web UI support and associated documentation
+- [f8a11a1] Add partial node search support
+- [b6c55dc] Improve testing, style, and documentation
+- [02ae9a6] Upgrade OSSEC to version 2.8.3
+- [0836d80] Add explicit `os` support for scientific/oracle/amazon platforms
+- Various other testing improvements and syntax cleanup
+
+## Breaking Changes
+
+- [b00b396] Move to attribute driven configuration
+
 # v1.0.5
 
 ## Bug
