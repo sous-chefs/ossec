@@ -23,7 +23,7 @@ ssh_hosts = []
 
 search_string = 'ossec:[* TO *]'
 search_string << " AND chef_environment:#{node['ossec']['server_env']}" if node['ossec']['server_env']
-search_string << " AND NOT role:#{node['ossec']['server_role']} AND NOT fqdn:#{node['fqdn']}"
+search_string << " AND (NOT role:#{node['ossec']['server_role']}) AND (NOT fqdn:#{node['fqdn']})"
 
 filter_keys = { 'fqdn' => ['fqdn'], 'ipaddress' => ['ipaddress'] }
 
