@@ -20,5 +20,5 @@
 include_recipe 'ossec::repository'
 
 package 'ossec' do
-  package_name value_for_platform_family('debian' => 'ossec-hids-agent', 'default' => 'ossec-hids-client')
+  package_name 'ossec-hids-agent'
 end
