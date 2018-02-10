@@ -18,7 +18,7 @@
 #
 
 case node['platform_family']
-when %w(centos redhat scientific oracle fedora amazon)
+when 'fedora', 'rhel'
   include_recipe 'yum-atomic'
 when 'debian'
   package 'lsb-release'
@@ -30,8 +30,8 @@ when 'debian'
   end
 
   apt_repository 'ossec' do
-    uri 'http://ossec.wazuh.com/repos/apt/' + node['platform']
-    key 'http://ossec.wazuh.com/repos/apt/conf/ossec-key.gpg.key'
+    uri 'http://updates.atomicorp.com/channels/atomic/' + node['platform']
+    key 'https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt'
     distribution lazy { node['lsb']['codename'] }
     components ['main']
   end
