@@ -52,7 +52,7 @@ default['ossec']['conf']['all']['syscheck']['directories'] = [
 
 This produces:
 
-```
+```xml
 <syscheck>
   <directories check_all="yes">/bin,/sbin</directories>
   <directories>/etc,/usr/bin,/usr/sbin</directories>
@@ -82,7 +82,7 @@ default['ossec']['agent_conf'] = [
 
 This produces:
 
-```
+```xml
 <agent_config>
   <syscheck>
     <frequency>4321</frequency>
@@ -107,11 +107,11 @@ Adds the OSSEC repository to the package manager. This recipe is included by oth
 
 ### install_agent
 
-Installs the agent packages but performs no explicit configuation.
+Installs the agent packages but performs no explicit configuration.
 
 ### install_server
 
-Install the server packages but performs no explicit configuation.
+Install the server packages but performs no explicit configuration.
 
 ### common
 
