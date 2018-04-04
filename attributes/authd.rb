@@ -19,6 +19,7 @@
 
 default['ossec']['authd']['ip_address'] = false
 default['ossec']['authd']['port'] = 1515
+default['ossec']['authd']['service_name'] = 'ossec-authd'
 
 default['ossec']['authd']['ca'] = nil
 default['ossec']['authd']['certificate'] = "#{node['ossec']['dir']}/etc/sslmanager.cert"

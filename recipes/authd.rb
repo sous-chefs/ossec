@@ -39,6 +39,7 @@ if node['init_package'] == 'systemd'
 end
 
 service 'ossec-authd' do
+  service_name authd['service_name']
   supports restart: true
   action [:enable, :start]
   subscribes :restart, 'template[ossec-authd init]'
