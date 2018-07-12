@@ -20,11 +20,8 @@ _Store
 *.bk
 *.bkup
 
-# ruby/bundler files
-.ruby-version
-.ruby-gemset
+# ruby
 .rvmrc
-Gemfile.lock
 .bundle
 *.gem
 
