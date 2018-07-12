@@ -102,7 +102,6 @@ service 'ossec' do
   action [:enable, :start]
 
   not_if do
-    (node['ossec']['install_type'] != 'local' && !File.size?("#{node['ossec']['dir']}/etc/client.keys")) ||
-      (node['ossec']['install_type'] == 'agent' && node['ossec']['agent_server_ip'].nil?)
+    (node['ossec']['install_type'] == 'agent' && node['ossec']['agent_server_ip'].nil?)
   end
 end
