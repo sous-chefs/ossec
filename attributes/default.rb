@@ -37,10 +37,106 @@ default['ossec']['agent_manager'] = value_for_platform_family(
 # The following attributes are mapped to XML for ossec.conf using
 # Gyoku. See the README for details on how this works.
 
-default['ossec']['conf']['all']['syscheck']['frequency'] = 21_600
-default['ossec']['conf']['all']['rootcheck']['disabled'] = false
+default['ossec']['conf']['all']['rules']['include'] = [
+  'rules_config.xml',
+  'pam_rules.xml',
+  'sshd_rules.xml',
+  'telnetd_rules.xml',
+  'syslog_rules.xml',
+  'arpwatch_rules.xml',
+  'symantec-av_rules.xml',
+  'symantec-ws_rules.xml',
+  'pix_rules.xml',
+  'named_rules.xml',
+  'smbd_rules.xml',
+  'vsftpd_rules.xml',
+  'pure-ftpd_rules.xml',
+  'proftpd_rules.xml',
+  'ms_ftpd_rules.xml',
+  'ftpd_rules.xml',
+  'hordeimp_rules.xml',
+  'roundcube_rules.xml',
+  'wordpress_rules.xml',
+  'cimserver_rules.xml',
+  'vpopmail_rules.xml',
+  'vmpop3d_rules.xml',
+  'courier_rules.xml',
+  'web_rules.xml',
+  'web_appsec_rules.xml',
+  'apache_rules.xml',
+  'nginx_rules.xml',
+  'php_rules.xml',
+  'mysql_rules.xml',
+  'postgresql_rules.xml',
+  'ids_rules.xml',
+  'squid_rules.xml',
+  'firewall_rules.xml',
+  'apparmor_rules.xml',
+  'cisco-ios_rules.xml',
+  'netscreenfw_rules.xml',
+  'sonicwall_rules.xml',
+  'postfix_rules.xml',
+  'sendmail_rules.xml',
+  'imapd_rules.xml',
+  'mailscanner_rules.xml',
+  'dovecot_rules.xml',
+  'ms-exchange_rules.xml',
+  'racoon_rules.xml',
+  'vpn_concentrator_rules.xml',
+  'spamd_rules.xml',
+  'msauth_rules.xml',
+  'mcafee_av_rules.xml',
+  'trend-osce_rules.xml',
+  'ms-se_rules.xml',
+  'zeus_rules.xml',
+  'solaris_bsm_rules.xml',
+  'vmware_rules.xml',
+  'ms_dhcp_rules.xml',
+  'asterisk_rules.xml',
+  'ossec_rules.xml',
+  'attack_rules.xml',
+  'dropbear_rules.xml',
+  'unbound_rules.xml',
+  'sysmon_rules.xml',
+  'opensmtpd_rules.xml',
+  'local_rules.xml'
+]
+
+default['ossec']['conf']['all']['syscheck']['frequency'] = 72000
+default['ossec']['conf']['all']['syscheck']['directories'] = [
+  { '@check_all' => true, 'content!' => '/etc,/usr/bin,/usr/sbin' },
+  { '@check_all' => true, 'content!' => '/bin,/sbin,/boot' }
+]
+default['ossec']['conf']['all']['syscheck']['ignore'] = [
+  '/etc/mtab',
+  '/etc/hosts.deny',
+  '/etc/mail/statistics',
+  '/etc/random-seed',
+  '/etc/adjtime',
+  '/etc/httpd/logs'
+]
+default['ossec']['conf']['all']['syscheck']['nodiff'] = [
+  '/etc/ssl/private.key',
+]
+
 default['ossec']['conf']['all']['rootcheck']['rootkit_files'] = "#{node['ossec']['dir']}/etc/shared/rootkit_files.txt"
 default['ossec']['conf']['all']['rootcheck']['rootkit_trojans'] = "#{node['ossec']['dir']}/etc/shared/rootkit_trojans.txt"
+
+default['ossec']['conf']['all']['global']['white_list'] = [
+  '127.0.0.1',
+  '::1'
+]
+
+default['ossec']['conf']['all']['command'] = [
+  { 'name' => 'host-deny', 'executable' => 'host-deny.sh', 'expect' => 'srcip', 'timeout_allowed' => true },
+  { 'name' => 'firewall-drop', 'executable' => 'firewall-drop.sh', 'expect' => 'srcip', 'timeout_allowed' => true },
+  { 'name' => 'disable-account', 'executable' => 'disable-account.sh', 'expect' => 'srcip', 'timeout_allowed' => true }
+]
+
+default['ossec']['conf']['all']['active-response'] = [
+  { 'command' => 'host-deny', 'location' => 'local', 'level' => 6, 'timeout' => 600 },
+  { 'command' => 'firewall-drop', 'location' => 'local', 'level' => 6, 'timeout' => 600 }
+]
 
 %w( local server ).each do |type|
   default['ossec']['conf'][type]['global']['email_notification'] = false
@@ -51,6 +147,14 @@ default['ossec']['conf']['all']['rootcheck']['rootkit_trojans'] = "#{node['ossec
   default['ossec']['conf'][type]['alerts']['email_alert_level'] = 7
   default['ossec']['conf'][type]['alerts']['log_alert_level'] = 1
   default['ossec']['conf'][type]['alerts']['use_geoip'] = false unless platform_family?('debian')
+
+  default['ossec']['conf'][type]['localfile'] = [
+    { 'log_format' => 'syslog', 'location' => '/var/log/messages' },
+    { 'log_format' => 'syslog', 'location' => '/var/log/authlog' },
+    { 'log_format' => 'syslog', 'location' => '/var/log/secure' },
+    { 'log_format' => 'syslog', 'location' => '/var/log/xferlog' },
+    { 'log_format' => 'syslog', 'location' => '/var/log/maillog' },
+  ]
 end
 
 default['ossec']['conf']['server']['remote']['connection'] = 'secure'
