@@ -6,6 +6,8 @@ Installs OSSEC from source in a server-agent installation. See:
 
 <http://www.ossec.net/doc/manual/installation/index.html>
 
+For managing Wazuh, consider using the Wazuh Chef Cookbook here: https://github.com/wazuh/wazuh-chef
+
 ## Requirements
 
 ### Platforms
