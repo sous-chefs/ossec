@@ -1,10 +1,31 @@
-# This gemfile provides additional gems for testing and releasing this cookbook
-# It is meant to be installed on top of ChefDK which provides the majority
-# of the necessary gems for testing this cookbook
-#
-# Run 'chef exec bundle install' to install these dependencies
-
 source 'https://rubygems.org'
 
-gem 'tomlrb'
-gem 'stove'
+ruby File.open(File.expand_path('.ruby-version', File.dirname(__FILE__))) { |f| f.read.chomp }
+
+gem 'berkshelf'
+gem 'chef', '~> 12'
+gem 'cookbook_release', git: 'git@github.com:tablexi/chef-cookbook_release_tasks.git'
+
+group :dev do
+  gem 'chefspec'
+  gem 'foodcritic'
+  gem 'rubocop'
+end
+
+group :kitchen do
+  gem 'chef-zero'
+  gem 'kitchen-ec2'
+  gem 'kitchen-inspec'
+  gem 'kitchen-transport-rsync'
+  gem 'kitchen-vagrant'
+  gem 'test-kitchen'
+end
+
+group :guard do
+  gem 'guard'
+  gem 'guard-foodcritic'
+  gem 'guard-kitchen'
+  gem 'guard-rspec'
+  gem 'guard-rubocop'
+  gem 'ruby_gntp'
+end
