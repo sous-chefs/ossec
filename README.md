@@ -4,7 +4,7 @@
 
 Installs OSSEC from source in a server-agent installation. See:
 
-<http://www.ossec.net/doc/manual/installation/index.html>
+<http://www.ossec.net/docs/manual/installation/index.html>
 
 For managing Wazuh, consider using the Wazuh Chef Cookbook here: https://github.com/wazuh/wazuh-chef
 
@@ -164,7 +164,7 @@ To manage additional agents on the server that don't run chef, or for agentless 
 }
 ```
 
-Enable agentless monitoring in OSSEC and register the hosts on the server. Automated configuration of agentless nodes is not yet supported by this cookbook. For more information on the commands and configuration directives required in `ossec.conf`, see the [OSSEC Documentation](http://www.ossec.net/doc/manual/agent/agentless-monitoring.html)
+Enable agentless monitoring in OSSEC and register the hosts on the server. Automated configuration of agentless nodes is not yet supported by this cookbook. For more information on the commands and configuration directives required in `ossec.conf`, see the [OSSEC Documentation](http://www.ossec.net/docs/manual/agent/agentless-monitoring.html)
 
 ### agent_auth
 
@@ -253,7 +253,7 @@ The main configuration file is maintained by Chef as a template, `ossec.conf.erb
 
 Further reading:
 
-- [OSSEC Documentation](http://www.ossec.net/doc/index.html)
+- [OSSEC Documentation](http://www.ossec.net/docs/index.html)
 
 ## License and Author
 
