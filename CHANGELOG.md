@@ -1,5 +1,8 @@
 # OSSEC Cookbook CHANGELOG
 
+## v1.1.1
+- Add distro based authd service name
+
 ## v1.1.0 (13-08-2018)
 - README Updates:
   * Fix broken links
