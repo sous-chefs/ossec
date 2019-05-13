@@ -1,44 +1,36 @@
 # OSSEC Cookbook CHANGELOG
 
-## UNRELEASED
+## 1.2.0 (13-05-2019)
+
 - Add distro based authd service name
 
-## v1.1.0 (13-08-2018)
+## 1.1.0 (13-08-2018)
+
 - README Updates:
-  * Fix broken links
-  * Add reference to Wazzuh
+  - Fix broken links
+  - Add reference to Wazzuh
 - General updates to cookbook
-  * Remove EOL distros
-  * Update for current supported Chef version (13)
+  - Remove EOL distros
+  - Update for current supported Chef version (13)
 
-## v1.0.5
-
-### Bug
+## 1.0.5
 
 - Avoid node.save to prevent incomplete attribute collections
 - `dist-ossec-keys.sh` should be sorted for idempotency
-
-### Improvement
-
 - Ability to disable ossec configuration template
 - Support for encrypted databags
 - Support for environment-scoped searches
 - Support for multiple email_to addresses
 
-## v1.0.4
-
-### Bug
+## 1.0.4
 
 - [COOK-2740]: Use FQDN for a client name
-
-### Improvement
-
 - [COOK-2739]: Upgrade OSSEC to version 2.7
 
-## v1.0.2:
+## 1.0.2
 
 - [COOK-1394] - update ossec to version 2.6
 
-## v1.0.0:
+## 1.0.0
 
 - Initial/current release
