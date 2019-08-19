@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: ossec
+# Cookbook:: ossec
 # Recipe:: authd
 #
-# Copyright 2015-2017, Chef Software, Inc.
+# Copyright:: 2015-2017, Chef Software, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -28,7 +28,7 @@ if node['init_package'] == 'systemd'
     source 'ossec-authd.service.erb'
     owner 'root'
     group 'root'
-    mode 0644
+    mode '644'
     variables authd
   end
 
