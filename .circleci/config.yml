@@ -33,8 +33,3 @@ workflows:
           suite: server
           requires:
             *lint_and_unit
-      - kitchen/dokken-single:
-          name: agent-auth
-          suite: agent-auth
-          requires:
-            *lint_and_unit
