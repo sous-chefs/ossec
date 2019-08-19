@@ -1,10 +1,15 @@
 # OSSEC Cookbook CHANGELOG
 
-## 1.2.0 (13-05-2019)
+## Unreleased
+
+- Various Cookstyle and foodcritic fixes
+- Migration to circleci testing
+
+## 1.2.0
 
 - Add distro based authd service name
 
-## 1.1.0 (13-08-2018)
+## 1.1.0
 
 - README Updates:
   - Fix broken links
