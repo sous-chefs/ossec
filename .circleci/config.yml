@@ -4,15 +4,12 @@ lint_and_unit: &lint_and_unit
   - danger
   - lint-yaml
   - lint-markdown
-
 version: 2.1
 orbs:
   kitchen: sous-chefs/kitchen@2
-
 workflows:
   kitchen:
     jobs:
-      # Lint and Unit Test
       - kitchen/yamllint:
           name: lint-yaml
       - kitchen/mdlint:
@@ -22,14 +19,35 @@ workflows:
           context: Danger
       - kitchen/delivery:
           name: delivery
-
       - kitchen/dokken-single:
-          name: client
-          suite: client
-          requires:
-            *lint_and_unit
+          name: client-debian-8
+          suite: client-debian-8
+          requires: *lint_and_unit
       - kitchen/dokken-single:
-          name: server
-          suite: server
-          requires:
-            *lint_and_unit
+          name: client-centos-7
+          suite: client-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-ubuntu-1604
+          suite: client-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: client-ubuntu-1804
+          suite: client-ubuntu-1804
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-debian-8
+          suite: server-debian-8
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-centos-7
+          suite: server-centos-7
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-ubuntu-1604
+          suite: server-ubuntu-1604
+          requires: *lint_and_unit
+      - kitchen/dokken-single:
+          name: server-ubuntu-1804
+          suite: server-ubuntu-1804
+          requires: *lint_and_unit
