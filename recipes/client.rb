@@ -30,7 +30,7 @@ else
   end
 end
 
-node.normal['ossec']['agent_server_ip'] = ossec_server.first
+node.default['ossec']['agent_server_ip'] = ossec_server.first
 
 include_recipe 'ossec::install_agent'
 
