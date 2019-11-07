@@ -1,4 +1,12 @@
 ---
+jobs:
+  final:
+    docker:
+      - image: bash:latest
+    steps:
+      - run:
+          name: Finish cooking
+          command: echo "Finished cooking"
 lint_and_unit: &lint_and_unit
   - delivery
   - danger
@@ -51,3 +59,13 @@ workflows:
           name: server-ubuntu-1804
           suite: server-ubuntu-1804
           requires: *lint_and_unit
+      - final:
+          requires:
+            - client-debian-8
+            - client-centos-7
+            - client-ubuntu-1604
+            - client-ubuntu-1804
+            - server-debian-8
+            - server-centos-7
+            - server-ubuntu-1604
+            - server-ubuntu-1804
