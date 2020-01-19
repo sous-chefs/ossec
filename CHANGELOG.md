@@ -5,7 +5,7 @@
 ### Added
 
 - Migration to circleci testing
-- Migration to github actions
+- Migration to actions
 
 ### Changed
 
