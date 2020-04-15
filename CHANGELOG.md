@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- resolved cookstyle error: libraries/helpers.rb:31:18 convention: `Style/HashEachMethods`
+
 ## [Unreleased]
 
 ### Added
