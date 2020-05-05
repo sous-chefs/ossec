@@ -4,7 +4,7 @@ maintainer_email 'help@sous-chefs.org'
 license          'Apache-2.0'
 description      'Installs and configures ossec'
 
-version          '1.2.0'
+version          '1.2.1'
 chef_version     '>= 13.0'
 
 depends 'yum-atomic'

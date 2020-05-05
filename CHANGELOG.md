@@ -1,19 +1,15 @@
 # Changelog
 
-## Unreleased
-
-- resolved cookstyle error: libraries/helpers.rb:31:18 convention: `Style/HashEachMethods`
-
-## [Unreleased]
+## 1.2.1 - 2020-05-05
 
 ### Added
 
-- Migration to circleci testing
-- Migration to actions
+- Migration to Github Actions
 
 ### Changed
 
 - Various Cookstyle and foodcritic fixes
+- resolved cookstyle error: libraries/helpers.rb:31:18 convention: `Style/HashEachMethods`
 
 ### Deprecated
 
