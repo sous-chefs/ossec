@@ -17,7 +17,7 @@
 # limitations under the License.
 #
 
-ruby_block 'ossec install_type' do # ~FC014
+ruby_block 'ossec install_type' do
   block do
     if node['recipes'].include?('ossec::default')
       type = 'local'
@@ -87,7 +87,7 @@ end
 # client.keys file will cause a server not to listen and an agent to
 # abort immediately. Explicitly stopping the service here after
 # installation allows Chef to start it when client.keys has content.
-service 'stop ossec' do # ~FC037
+service 'stop ossec' do
   service_name platform_family?('debian') ? 'ossec' : 'ossec-hids'
   action :nothing
 
