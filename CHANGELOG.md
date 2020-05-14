@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 1.2.2 - 2020-05-14
 
 - resolved cookstyle error: recipes/common.rb:20:35 convention: `Layout/TrailingWhitespace`
 - resolved cookstyle error: recipes/common.rb:20:36 refactor: `ChefModernize/FoodcriticComments`
