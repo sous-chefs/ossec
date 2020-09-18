@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+- resolved cookstyle error: spec/unit/recipes/agent_spec.rb:5:31 convention: `Style/ExpandPathArguments`
+- resolved cookstyle error: spec/unit/recipes/client_spec.rb:5:31 convention: `Style/ExpandPathArguments`
+- resolved cookstyle error: spec/unit/recipes/server_spec.rb:5:31 convention: `Style/ExpandPathArguments`
+
 ## 1.2.2 - 2020-05-14
 
 - resolved cookstyle error: recipes/common.rb:20:35 convention: `Layout/TrailingWhitespace`
