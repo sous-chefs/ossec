@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- Standardise files with files in sous-chefs/repo-management
+
 ## 1.2.3 - *2021-06-01*
 
 - resolved cookstyle error: spec/unit/recipes/agent_spec.rb:5:31 convention: `Style/ExpandPathArguments`
