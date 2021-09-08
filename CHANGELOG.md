@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 1.2.5 - *2021-09-08*
 
 - resolved cookstyle error: recipes/authd.rb:25:4 refactor: `Chef/Modernize/UseChefLanguageSystemdHelper`
