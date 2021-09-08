@@ -22,7 +22,7 @@ include_recipe 'ossec::common'
 
 authd = node['ossec']['authd']
 
-if node['init_package'] == 'systemd'
+if systemd?
   template 'ossec-authd init' do
     path '/lib/systemd/system/ossec-authd.service'
     source 'ossec-authd.service.erb'

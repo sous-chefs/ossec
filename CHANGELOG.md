@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- resolved cookstyle error: recipes/authd.rb:25:4 refactor: `Chef/Modernize/UseChefLanguageSystemdHelper`
 ## 1.2.4 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management
