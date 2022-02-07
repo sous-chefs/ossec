@@ -1,5 +1,7 @@
 # Changelog
 
+## Unreleased
+
 ## 1.2.6 - *2022-02-07*
 
 Standardise files with files in sous-chefs/repo-management
