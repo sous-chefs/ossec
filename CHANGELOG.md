@@ -4,11 +4,13 @@
 
 ## 1.2.6 - *2022-02-07*
 
-Standardise files with files in sous-chefs/repo-management
+- Remove delivery folder
+- Standardise files with files in sous-chefs/repo-management
 
 ## 1.2.5 - *2021-09-08*
 
 - resolved cookstyle error: recipes/authd.rb:25:4 refactor: `Chef/Modernize/UseChefLanguageSystemdHelper`
+
 ## 1.2.4 - *2021-08-30*
 
 - Standardise files with files in sous-chefs/repo-management
