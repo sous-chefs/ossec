@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- update repo for Debian 11+, Ubuntu 20.04+
+
+
 ## 1.2.7 - *2022-02-08*
 
 ## 1.2.6 - *2022-02-07*
