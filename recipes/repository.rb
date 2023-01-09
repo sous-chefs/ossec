@@ -29,14 +29,14 @@ when 'debian'
     subscribes :reload, 'package[lsb-release]', :immediately
   end
   def dist
-    if platform?('ubuntu') && node['platform_version'].to_f >=20.04
-        lazy { node['lsb']['codename']/node['packages']['apt']['arch] }
+    if platform?('ubuntu') && node['platform_version'].to_f >= 20.04
+        lazy { node['lsb']['codename']/node['packages']['apt']['arch'] }
     elsif platform?('debian') && node['platform_version'].to_i >= 11
-        lazy { node['lsb']['codename']/node['packages']['apt']['arch] }
+        lazy { node['lsb']['codename']/node['packages']['apt']['arch'] }
     else
         lazy { node['lsb']['codename'] }
     end
-
+  end
   apt_repository 'ossec' do
     uri 'http://updates.atomicorp.com/channels/atomic/' + node['platform']
     key 'https://updates.atomicorp.com/installers/RPM-GPG-KEY.atomicorp.txt'
