@@ -3,6 +3,7 @@
 ## Unreleased
 
 - Standardise files with files in sous-chefs/repo-management
+- Update repo for Debian 11+, Ubuntu 20.04+
 
 ## 1.2.7 - *2022-02-08*
 
