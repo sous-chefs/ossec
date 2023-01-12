@@ -19,20 +19,18 @@
 
 case node['platform_family']
 when 'fedora', 'rhel'
+  node.default['yum']['atomic']['mirrorlist'] = nil
+  node.default['yum']['atomic']['baseurl'] =
+    'https://updates.atomicorp.com/channels/atomic/centos/$releasever/$basearch'
+
   include_recipe 'yum-atomic'
 when 'debian'
-  package 'lsb-release'
-
-  ohai 'reload lsb' do
-    plugin 'lsb'
-    action :nothing
-    subscribes :reload, 'package[lsb-release]', :immediately
-  end
-
   apt_repository 'ossec' do
-    uri 'http://updates.atomicorp.com/channels/atomic/' + node['platform']
-    key 'https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt'
-    distribution lazy { node['lsb']['codename'] }
-    components ['main']
+    uri "https://updates.atomicorp.com/channels/atomic/#{node['platform']}"
+    key 'https://updates.atomicorp.com/installers/RPM-GPG-KEY.atomicorp.txt'
+    arch ossec_deb_arch
+    distribution ossec_apt_repo_dist
+    trusted true if ossec_apt_new_layout?
+    components ossec_apt_new_layout? ? [] : %w(main)
   end
 end

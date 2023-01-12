@@ -17,15 +17,80 @@
 # limitations under the License.
 #
 
-class Chef
-  module OSSEC
+class Ossec
+  module Cookbook
     module Helpers
+      def ossec_apt_repo_dist
+        if node['os_release']
+          codename = node['os_release']['version_codename']
+        elsif node['lsb']
+          codename = node['lsb']['codename']
+        else
+          raise 'unable to find release code name, please install the lsb-release package'
+        end
+
+        if ossec_apt_new_layout?
+          "#{codename}/#{ossec_deb_arch}/"
+        else
+          codename
+        end
+      end
+
+      def ossec_deb_arch
+        case node['kernel']['machine']
+        when 'aarch64'
+          'arm64'
+        else
+          'amd64'
+        end
+      end
+
+      def ossec_apt_new_layout?
+        if platform?('ubuntu') && node['platform_version'].to_f >= 20.04
+          true
+        elsif platform?('debian') && node['platform_version'].to_i >= 11
+          true
+        else
+          false
+        end
+      end
+
+      def ossec_to_xml(hash)
+        require 'gyoku'
+        Gyoku.xml object_to_ossec(hash)
+      end
+
+      def ossec_install_type
+        type = nil
+
+        if node['recipes'].include?('ossec::default')
+          type = 'local'
+        else
+          begin
+            File.open('/etc/ossec-init.conf') do |file|
+              file.each_line do |line|
+                if line =~ /^TYPE="([^"]+)"/
+                  type = Regexp.last_match(1)
+                  break
+                end
+              end
+            end
+          rescue
+            type = nil
+          end
+        end
+
+        type
+      end
+
+      private
+
       # Gyoku looks for a symbol called :content! but Chef attributes
       # are always stringified. We can't just call symbolize_keys
       # because we need to recurse through the hash structure. Doing
       # this also gives us the opportunity to convert true/false to
       # yes/no, which is handy.
-      def self.object_to_ossec(object)
+      def object_to_ossec(object)
         case object
         when Hash
           object.each_key do |k|
@@ -50,11 +115,8 @@ class Chef
           object
         end
       end
-
-      def self.ossec_to_xml(hash)
-        require 'gyoku'
-        Gyoku.xml object_to_ossec(hash)
-      end
     end
   end
 end
+Chef::DSL::Recipe.include Ossec::Cookbook::Helpers
+Chef::Resource.include Ossec::Cookbook::Helpers

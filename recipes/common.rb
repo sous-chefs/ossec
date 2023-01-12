@@ -17,27 +17,6 @@
 # limitations under the License.
 #
 
-ruby_block 'ossec install_type' do
-  block do
-    if node['recipes'].include?('ossec::default')
-      type = 'local'
-    else
-      type = nil
-
-      File.open('/etc/ossec-init.conf') do |file|
-        file.each_line do |line|
-          if line =~ /^TYPE="([^"]+)"/
-            type = Regexp.last_match(1)
-            break
-          end
-        end
-      end
-    end
-
-    node.default['ossec']['install_type'] = type
-  end
-end
-
 # Gyoku renders the XML.
 chef_gem 'gyoku' do
   compile_time false
@@ -53,9 +32,9 @@ file "#{node['ossec']['dir']}/etc/ossec.conf" do
   content lazy {
     # Merge the "typed" attributes over the "all" attributes.
     all_conf = node['ossec']['conf']['all'].to_hash
-    type_conf = node['ossec']['conf'][node['ossec']['install_type']].to_hash
+    type_conf = node['ossec']['conf'][ossec_install_type].to_hash
     conf = Chef::Mixin::DeepMerge.deep_merge(type_conf, all_conf)
-    Chef::OSSEC::Helpers.ossec_to_xml('ossec_config' => conf)
+    ossec_to_xml('ossec_config' => conf)
   }
 end
 
@@ -73,9 +52,9 @@ file "#{node['ossec']['dir']}/etc/shared/agent.conf" do
   action :create
 
   content lazy {
-    if node['ossec']['install_type'] == 'server'
+    if ossec_install_type == 'server'
       conf = node['ossec']['agent_conf'].to_a
-      Chef::OSSEC::Helpers.ossec_to_xml('agent_config' => conf)
+      ossec_to_xml('agent_config' => conf)
     else
       ''
     end
@@ -102,7 +81,7 @@ service 'ossec' do
   action [:enable, :start]
 
   not_if do
-    (node['ossec']['install_type'] != 'local' && !File.size?("#{node['ossec']['dir']}/etc/client.keys")) ||
-      (node['ossec']['install_type'] == 'agent' && node['ossec']['agent_server_ip'].nil?)
+    (ossec_install_type != 'local' && !File.size?("#{node['ossec']['dir']}/etc/client.keys")) ||
+      (ossec_install_type == 'agent' && node['ossec']['agent_server_ip'].nil?)
   end
 end
