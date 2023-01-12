@@ -6,7 +6,7 @@ source_url       'https://github.com/sous-chefs/ossec'
 issues_url       'https://github.com/sous-chefs/ossec'
 description      'Installs and configures ossec'
 version          '1.2.7'
-chef_version     '>= 13.0'
+chef_version     '>= 16.13'
 
 depends 'yum-atomic'
 

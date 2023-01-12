@@ -23,10 +23,16 @@ jobs:
     strategy:
       matrix:
         os:
-          - 'debian-8'
+          - 'almalinux-8'
+          - 'almalinux-9'
           - 'centos-7'
-          - 'ubuntu-1604'
+          - 'centos-stream-8'
+          - 'centos-stream-9'
+          - 'debian-10'
+          - 'rockylinux-8'
+          - 'rockylinux-9'
           - 'ubuntu-1804'
+          - 'ubuntu-2004'
         suite:
           - 'client'
           - 'server'

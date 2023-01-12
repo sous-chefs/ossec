@@ -5,5 +5,5 @@ RSpec.configure do |config|
   config.color = true               # Use color in STDOUT
   config.formatter = :documentation # Use the specified formatter
   config.platform = 'ubuntu'
-  config.version = '16.04'
+  config.version = '20.04'
 end

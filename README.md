@@ -22,15 +22,13 @@ This cookbook is maintained by the Sous Chefs. The Sous Chefs are a community of
 
 - Ubuntu / Debian
 - RHEL and derivatives
-- Fedora
 
 ### Chef
 
-- Chef 12.5+
+- Chef 16.13+
 
 ### Cookbooks
 
-- apt
 - yum-atomic
 
 ## Attributes

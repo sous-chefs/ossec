@@ -19,25 +19,16 @@
 
 case node['platform_family']
 when 'fedora', 'rhel'
+  node.default['yum']['atomic']['mirrorlist'] = nil
+  node.default['yum']['atomic']['baseurl'] =
+    'https://updates.atomicorp.com/channels/atomic/centos/$releasever/$basearch'
+
   include_recipe 'yum-atomic'
 when 'debian'
-  package 'lsb-release'
-
-  ohai 'reload lsb' do
-    plugin 'lsb'
-    action :nothing
-    subscribes :reload, 'package[lsb-release]', :immediately
-  end
-  dist = node['lsb']['codename'] 
-  if platform?('ubuntu') && node['platform_version'].to_f >= 20.04
-        dist = node['lsb']['codename']  + '/' + node['packages']['apt']['arch'] + '/' 
-    elsif platform?('debian') && node['platform_version'].to_i >= 11
-        dist = node['lsb']['codename']  + '/' + node['packages']['apt']['arch'] + '/' 
-  end
   apt_repository 'ossec' do
-    uri 'https://updates.atomicorp.com/channels/atomic/' + node['platform']
+    arch ossec_deb_arch
+    uri "https://updates.atomicorp.com/channels/atomic/#{node['platform']}"
     key 'https://updates.atomicorp.com/installers/RPM-GPG-KEY.atomicorp.txt'
-    distribution #{dist}
     components ['main']
   end
 end

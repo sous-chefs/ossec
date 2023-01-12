@@ -3,6 +3,8 @@ require 'json'
 
 describe 'ossec::authd' do
   before do
+    allow(File).to receive(:open).and_call_original
+    allow(File).to receive(:open).with('/etc/ossec-init.conf')
     allow(File).to receive(:exist?).and_call_original
     allow(File).to receive(:exist?).with('/var/ossec/etc/sslmanager.cert').and_return(true)
     allow(File).to receive(:exist?).with('/var/ossec/etc/sslmanager.key').and_return(true)
