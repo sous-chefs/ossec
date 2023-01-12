@@ -21,10 +21,18 @@ class Ossec
   module Cookbook
     module Helpers
       def ossec_apt_repo_dist
-        if ossec_apt_new_layout?
-          "#{node['os_release']['version_codename']}/#{ossec_deb_arch}/"
+        if node['os_release']
+          codename = node['os_release']['version_codename']
+        elsif node['lsb']
+          codename = node['lsb']['codename']
         else
-          node['os_release']['version_codename']
+          raise 'unable to find release code name, please install the lsb-release package'
+        end
+
+        if ossec_apt_new_layout?
+          "#{codename}/#{ossec_deb_arch}/"
+        else
+          codename
         end
       end
 
@@ -53,18 +61,22 @@ class Ossec
       end
 
       def ossec_install_type
+        type = nil
+
         if node['recipes'].include?('ossec::default')
           type = 'local'
         else
-          type = nil
-
-          File.open('/etc/ossec-init.conf') do |file|
-            file.each_line do |line|
-              if line =~ /^TYPE="([^"]+)"/
-                type = Regexp.last_match(1)
-                break
+          begin
+            File.open('/etc/ossec-init.conf') do |file|
+              file.each_line do |line|
+                if line =~ /^TYPE="([^"]+)"/
+                  type = Regexp.last_match(1)
+                  break
+                end
               end
             end
+          rescue
+            type = nil
           end
         end
 

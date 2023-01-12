@@ -2,11 +2,6 @@ require 'spec_helper'
 require 'json'
 
 describe 'ossec::agent' do
-  before do
-    allow(File).to receive(:open).and_call_original
-    allow(File).to receive(:open).with('/etc/ossec-init.conf')
-  end
-
   let(:data_bags_path) { File.expand_path('../../../test/fixtures/data_bags', __dir__) }
   let(:data_bag_ossec_ssh) { JSON.parse(File.read("#{data_bags_path}/ossec/ssh.json")) }
 
