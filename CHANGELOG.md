@@ -5,7 +5,6 @@
 - Standardise files with files in sous-chefs/repo-management
 - Partially modernize cookbook
    - Refactor library helper
-- Require Chef >= 16.13 due to use of os_release ohai data
 - Properly set repositories for various supported platforms
 - Cleanup and Fix CI
 - Add support to various platforms
