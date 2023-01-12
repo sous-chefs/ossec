@@ -26,9 +26,11 @@ when 'fedora', 'rhel'
   include_recipe 'yum-atomic'
 when 'debian'
   apt_repository 'ossec' do
-    arch ossec_deb_arch
     uri "https://updates.atomicorp.com/channels/atomic/#{node['platform']}"
     key 'https://updates.atomicorp.com/installers/RPM-GPG-KEY.atomicorp.txt'
-    components ['main']
+    arch ossec_deb_arch
+    distribution ossec_apt_repo_dist
+    trusted true if ossec_apt_new_layout?
+    components ossec_apt_new_layout? ? [] : %w(main)
   end
 end

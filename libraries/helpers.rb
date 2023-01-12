@@ -20,12 +20,30 @@
 class Ossec
   module Cookbook
     module Helpers
+      def ossec_apt_repo_dist
+        if ossec_apt_new_layout?
+          "#{node['os_release']['version_codename']}/#{ossec_deb_arch}/"
+        else
+          node['os_release']['version_codename']
+        end
+      end
+
       def ossec_deb_arch
         case node['kernel']['machine']
         when 'aarch64'
           'arm64'
         else
           'amd64'
+        end
+      end
+
+      def ossec_apt_new_layout?
+        if platform?('ubuntu') && node['platform_version'].to_f >= 20.04
+          true
+        elsif platform?('debian') && node['platform_version'].to_i >= 11
+          true
+        else
+          false
         end
       end
 

@@ -9,7 +9,6 @@
 - Properly set repositories for various supported platforms
 - Cleanup and Fix CI
 - Add support to various platforms
-   - Exclude Debian 11, Ubuntu 22.04 due to lack of upstream support
 - Fix idempotency issues
 
 ## 1.2.7 - *2022-02-08*

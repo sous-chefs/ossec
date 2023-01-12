@@ -29,10 +29,12 @@ jobs:
           - 'centos-stream-8'
           - 'centos-stream-9'
           - 'debian-10'
+          - 'debian-11'
           - 'rockylinux-8'
           - 'rockylinux-9'
           - 'ubuntu-1804'
           - 'ubuntu-2004'
+          - 'ubuntu-2204'
         suite:
           - 'client'
           - 'server'
