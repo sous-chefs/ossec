@@ -9,7 +9,6 @@ transport:
 
 provisioner:
   name: dokken
-  chef_license: accept-no-persist
 
 platforms:
   - name: almalinux-8
