@@ -5,7 +5,7 @@ license          'Apache-2.0'
 source_url       'https://github.com/sous-chefs/ossec'
 issues_url       'https://github.com/sous-chefs/ossec/issues'
 description      'Installs and configures ossec'
-version          '2.0.11'
+version          '2.0.12'
 chef_version     '>= 13.0'
 
 depends 'yum-atomic'
