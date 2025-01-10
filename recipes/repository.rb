@@ -27,7 +27,7 @@ when 'fedora', 'rhel'
 when 'debian'
   apt_repository 'ossec' do
     uri "https://updates.atomicorp.com/channels/atomic/#{node['platform']}"
-    key 'https://updates.atomicorp.com/installers/RPM-GPG-KEY.atomicorp.txt'
+    key 'https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt'
     arch ossec_deb_arch
     distribution ossec_apt_repo_dist
     trusted true if ossec_apt_new_layout?
