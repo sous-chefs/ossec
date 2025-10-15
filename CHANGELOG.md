@@ -3,6 +3,13 @@
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## [2.0.17](https://github.com/sous-chefs/ossec/compare/2.0.16...v2.0.17) (2025-10-15)
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#188](https://github.com/sous-chefs/ossec/issues/188)) ([1cc004a](https://github.com/sous-chefs/ossec/commit/1cc004ad272354130c96be8018ccd3d17c35ee06))
+
 ## 2.0.16 - *2025-09-04*
 
 Standardise files with files in sous-chefs/repo-management
