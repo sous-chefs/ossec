@@ -3,6 +3,11 @@
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## Unreleased
+
+Standardise files with files in sous-chefs/repo-management
+
+
 ## [2.0.18](https://github.com/sous-chefs/ossec/compare/v2.0.17...v2.0.18) (2025-10-16)
 
 
