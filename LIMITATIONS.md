@@ -114,11 +114,12 @@ packages are unavailable or unsuitable.
 
 ### Build Dependencies
 
-| Platform Family | Packages |
-|-----------------|----------|
-| Debian / Ubuntu | `build-essential`, `make`, `zlib1g-dev`, `libpcre2-dev`, `libevent-dev`, `libssl-dev`, `libsystemd-dev`, `libsqlite3-dev` |
-| RHEL / CentOS / Fedora / Amazon | `zlib-devel`, `pcre2-devel`, `make`, `gcc`, `sqlite-devel`, `openssl-devel`, `libevent-devel`, `systemd-devel` |
-| OpenSuse | `zlib-devel`, `pcre2-devel`, optional `postgresql-devel`, optional `mysql-devel` |
+- `Debian / Ubuntu`: `build-essential`, `make`, `zlib1g-dev`, `libpcre2-dev`,
+  `libevent-dev`, `libssl-dev`, `libsystemd-dev`, `libsqlite3-dev`
+- `RHEL / CentOS / Fedora / Amazon`: `zlib-devel`, `pcre2-devel`, `make`,
+  `gcc`, `sqlite-devel`, `openssl-devel`, `libevent-devel`, `systemd-devel`
+- `OpenSuse`: `zlib-devel`, `pcre2-devel`, optional `postgresql-devel`,
+  optional `mysql-devel`
 
 ### Build-Time Notes
 
@@ -144,34 +145,34 @@ packages are unavailable or unsuitable.
 ## Sources
 
 - Atomicorp package support docs:
-  - https://docs.atomicorp.com/AEO/agents/requirements/index.html
+  - <https://docs.atomicorp.com/AEO/agents/requirements/index.html>
 - Atomicorp archive trees:
-  - https://updates.atomicorp.com/channels/atomic/ubuntu/dists/
-  - https://updates.atomicorp.com/channels/atomic/debian/dists/
-  - https://updates.atomicorp.com/channels/atomic/centos/
-  - https://updates.atomicorp.com/channels/atomic/amazon/
-  - https://updates.atomicorp.com/channels/atomic/fedora/
-  - https://updates.atomicorp.com/channels/atomic/opensuse/
+  - <https://updates.atomicorp.com/channels/atomic/ubuntu/dists/>
+  - <https://updates.atomicorp.com/channels/atomic/debian/dists/>
+  - <https://updates.atomicorp.com/channels/atomic/centos/>
+  - <https://updates.atomicorp.com/channels/atomic/amazon/>
+  - <https://updates.atomicorp.com/channels/atomic/fedora/>
+  - <https://updates.atomicorp.com/channels/atomic/opensuse/>
 - Atomicorp mirror index:
-  - https://updates.atomicorp.com/channels/mirrorlist/atomic/
+  - <https://updates.atomicorp.com/channels/mirrorlist/atomic/>
 - GPG key and installer assets:
-  - https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt
-  - https://updates.atomicorp.com/installers/
+  - <https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt>
+  - <https://updates.atomicorp.com/installers/>
 - Upstream OSSEC installation requirements:
-  - https://www.ossec.net/docs/docs/manual/installation/installation-requirements.html
+  - <https://www.ossec.net/docs/docs/manual/installation/installation-requirements.html>
 - Upstream OSSEC package install docs:
-  - https://www.ossec.net/docs/docs/manual/installation/installation-package.html
+  - <https://www.ossec.net/docs/docs/manual/installation/installation-package.html>
 - Upstream OSSEC source install docs:
-  - https://www.ossec.net/docs/docs/manual/installation/install-source.html
+  - <https://www.ossec.net/docs/docs/manual/installation/install-source.html>
 - Lifecycle references:
-  - https://endoflife.date/ubuntu
-  - https://endoflife.date/debian
-  - https://endoflife.date/centos
-  - https://endoflife.date/centos-stream
-  - https://endoflife.date/amazon-linux
-  - https://endoflife.date/rhel
-  - https://endoflife.date/rocky-linux
-  - https://endoflife.date/oracle-linux
-  - https://endoflife.date/fedora
-  - https://endoflife.date/opensuse
-  - https://scientificlinux.org/category/uncategorized/scientific-linux-end-of-life/
+  - <https://endoflife.date/ubuntu>
+  - <https://endoflife.date/debian>
+  - <https://endoflife.date/centos>
+  - <https://endoflife.date/centos-stream>
+  - <https://endoflife.date/amazon-linux>
+  - <https://endoflife.date/rhel>
+  - <https://endoflife.date/rocky-linux>
+  - <https://endoflife.date/oracle-linux>
+  - <https://endoflife.date/fedora>
+  - <https://endoflife.date/opensuse>
+  - <https://scientificlinux.org/category/uncategorized/scientific-linux-end-of-life/>

@@ -5,17 +5,17 @@ repository by default.
 
 ## Actions
 
-| Action | Description |
-|--------|-------------|
-| `:create` | Installs the requested package and stops/disables the packaged service (default) |
-| `:delete` | Stops/disables the service, removes the package, and optionally removes the repository |
+- `:create`: Installs the requested package and stops or disables the packaged
+  service
+- `:delete`: Stops or disables the service, removes the package, and optionally
+  removes the repository
 
 ## Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `package_type` | String | name | Package role. Must be `server` or `agent` |
-| `manage_repository` | Boolean | `true` | Whether the `ossec_repository` resource should be managed |
+- `package_type` (`String`, default: name): Package role. Must be `server` or
+  `agent`
+- `manage_repository` (`Boolean`, default: `true`): Whether the
+  `ossec_repository` resource should be managed
 
 ## Examples
 

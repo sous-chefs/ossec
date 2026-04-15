@@ -4,10 +4,8 @@ Manages the Atomicorp package repository used by this cookbook.
 
 ## Actions
 
-| Action | Description |
-|--------|-------------|
-| `:create` | Creates the platform-appropriate package repository (default) |
-| `:delete` | Removes the package repository |
+- `:create`: Creates the platform-appropriate package repository
+- `:delete`: Removes the package repository
 
 ## Properties
 

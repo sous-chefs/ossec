@@ -6,25 +6,31 @@ configuration.
 
 ## Actions
 
-| Action | Description |
-|--------|-------------|
-| `:create` | Installs and configures an OSSEC agent (default) |
-| `:delete` | Removes agent configuration, key material, and the agent package |
+- `:create`: Installs and configures an OSSEC agent
+- `:delete`: Removes agent configuration, key material, and the agent package
 
 ## Properties
 
-| Property | Type | Default | Description |
-|----------|------|---------|-------------|
-| `install_dir` | String | `'/var/ossec'` | OSSEC installation directory |
-| `manage_repository` | Boolean | `true` | Whether the Atomicorp repository should be managed |
-| `ossec_conf` | Hash | `{}` | Additional OSSEC configuration merged over the defaults |
-| `data_bag_name` | String | `'ossec'` | Data bag name containing SSH key material |
-| `ssh_data_bag_item` | String | `'ssh'` | Data bag item containing the public key |
-| `encrypted_data_bag` | Boolean | `false` | Whether the SSH data bag item is encrypted |
-| `server_role` | String | `'ossec_server'` | Chef role used to discover the manager when `agent_server_ip` is not set |
-| `server_env` | String, nil | `nil` | Optional Chef environment filter for manager discovery |
-| `agent_server_ip` | String, nil | `nil` | Explicit manager IP address |
-| `client_keys_content` | String, nil | `nil` | Optional content written to `client.keys` |
+- `install_dir` (`String`, default: `'/var/ossec'`): OSSEC installation
+  directory
+- `manage_repository` (`Boolean`, default: `true`): Whether the Atomicorp
+  repository should be managed
+- `ossec_conf` (`Hash`, default: `{}`): Additional OSSEC configuration merged
+  over the defaults
+- `data_bag_name` (`String`, default: `'ossec'`): Data bag name containing SSH
+  key material
+- `ssh_data_bag_item` (`String`, default: `'ssh'`): Data bag item containing
+  the public key
+- `encrypted_data_bag` (`Boolean`, default: `false`): Whether the SSH data bag
+  item is encrypted
+- `server_role` (`String`, default: `'ossec_server'`): Chef role used to
+  discover the manager when `agent_server_ip` is not set
+- `server_env` (`String, nil`, default: `nil`): Optional Chef environment
+  filter for manager discovery
+- `agent_server_ip` (`String, nil`, default: `nil`): Explicit manager IP
+  address
+- `client_keys_content` (`String, nil`, default: `nil`): Optional content
+  written to `client.keys`
 
 ## Examples
 
