@@ -1,122 +1,96 @@
-#
-# Cookbook:: ossec
-# Library:: helpers
-#
-# Copyright:: 2015-2017, Chef Software, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+# frozen_string_literal: true
 
-class Ossec
-  module Cookbook
-    module Helpers
-      def ossec_apt_repo_dist
-        if node['os_release']
-          codename = node['os_release']['version_codename']
-        elsif node['lsb']
-          codename = node['lsb']['codename']
-        else
-          raise 'unable to find release code name, please install the lsb-release package'
-        end
+require 'chef/mixin/deep_merge'
+require 'chef/search/query'
 
-        if ossec_apt_new_layout?
-          "#{codename}/#{ossec_deb_arch}/"
-        else
-          codename
-        end
+module OssecCookbook
+  module Helpers
+    def ossec_apt_repo_dist
+      if node['os_release']
+        node['os_release']['version_codename']
+      elsif node['lsb']
+        node['lsb']['codename']
+      else
+        raise 'unable to determine the release codename for the Atomicorp apt repository'
       end
+    end
 
-      def ossec_deb_arch
-        case node['kernel']['machine']
-        when 'aarch64'
-          'arm64'
-        else
-          'amd64'
-        end
+    def ossec_deb_arch
+      case node['kernel']['machine']
+      when 'aarch64', 'arm64'
+        'arm64'
+      else
+        'amd64'
       end
+    end
 
-      def ossec_apt_new_layout?
-        if platform?('ubuntu') && node['platform_version'].to_f >= 20.04
-          true
-        elsif platform?('debian') && node['platform_version'].to_i >= 11
-          true
-        else
-          false
-        end
+    def ossec_package_name(package_type)
+      case package_type
+      when 'agent'
+        'ossec-hids-agent'
+      when 'server'
+        'ossec-hids-server'
+      else
+        raise "unsupported OSSEC package type: #{package_type}"
       end
+    end
 
-      def ossec_to_xml(hash)
-        require 'gyoku'
-        Gyoku.xml object_to_ossec(hash)
-      end
+    def ossec_main_service_name
+      platform_family?('debian') ? 'ossec' : 'ossec-hids'
+    end
 
-      def ossec_install_type
-        type = nil
+    def ossec_authd_service_name
+      platform_family?('debian') ? 'ossec-authd' : 'ossec-hids-authd'
+    end
 
-        if node['recipes'].include?('ossec::default')
-          type = 'local'
-        else
-          begin
-            File.open('/etc/ossec-init.conf') do |file|
-              file.each_line do |line|
-                if line =~ /^TYPE="([^"]+)"/
-                  type = Regexp.last_match(1)
-                  break
-                end
-              end
-            end
-          rescue
-            type = nil
-          end
+    def ossec_to_xml(hash)
+      require 'gyoku'
+      Gyoku.xml(object_to_ossec(hash))
+    end
+
+    def deep_merge_hash(override, base)
+      Chef::Mixin::DeepMerge.deep_merge(override, base)
+    end
+
+    def client_keys_path(install_dir)
+      ::File.join(install_dir, 'etc', 'client.keys')
+    end
+
+    def agent_conf_path(install_dir)
+      ::File.join(install_dir, 'etc', 'shared', 'agent.conf')
+    end
+
+    def ossec_conf_path(install_dir)
+      ::File.join(install_dir, 'etc', 'ossec.conf')
+    end
+
+    def load_ossec_data_bag(item_name, bag_name, _encrypted)
+      data_bag_item(bag_name, item_name)
+    end
+
+    def search_nodes(search_string, filter_result: nil)
+      Chef::Search::Query.new.search(:node, search_string, filter_result: filter_result).first
+    end
+
+    private
+
+    def object_to_ossec(object)
+      case object
+      when Hash
+        object.each_with_object({}) do |(key, value), result|
+          result[key == 'content!' ? :content! : key] = object_to_ossec(value)
         end
-
-        type
-      end
-
-      private
-
-      # Gyoku looks for a symbol called :content! but Chef attributes
-      # are always stringified. We can't just call symbolize_keys
-      # because we need to recurse through the hash structure. Doing
-      # this also gives us the opportunity to convert true/false to
-      # yes/no, which is handy.
-      def object_to_ossec(object)
-        case object
-        when Hash
-          object.each_key do |k|
-            if k == 'content!'
-              object[:content!] = object_to_ossec(object.delete(k))
-            else
-              object[k] = object_to_ossec(object[k])
-            end
-          end
-          object
-        when Array
-          object.map! do |e|
-            object_to_ossec(e)
-          end
-        when TrueClass
-          'yes'
-        when FalseClass
-          'no'
-        when NilClass
-          ''
-        else
-          object
-        end
+      when Array
+        object.map { |entry| object_to_ossec(entry) }
+      when TrueClass
+        'yes'
+      when FalseClass
+        'no'
+      when NilClass
+        ''
+      else
+        object
       end
     end
   end
 end
-Chef::DSL::Recipe.include Ossec::Cookbook::Helpers
-Chef::Resource.include Ossec::Cookbook::Helpers

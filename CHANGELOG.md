@@ -3,6 +3,13 @@
 Standardise files with files in sous-chefs/repo-management
 Standardise files with files in sous-chefs/repo-management
 
+## Unreleased
+
+- Convert the cookbook to a full custom-resource layout under `resources/`
+- Remove legacy `recipes/` and `attributes/` content
+- Modernize supported platforms and align Kitchen and CI with the current matrix
+- Add `LIMITATIONS.md`, resource documentation, test cookbook recipes, and resource-focused ChefSpec/InSpec coverage
+
 ## [2.0.18](https://github.com/sous-chefs/ossec/compare/v2.0.17...v2.0.18) (2025-10-16)
 
 
