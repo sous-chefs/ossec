@@ -38,8 +38,8 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v6
-      - name: Install Chef
-        uses: actionshub/chef-install@main
+      - name: Install Cinc Workstation
+        uses: sous-chefs/.github/.github/actions/install-workstation@main
       - name: Dokken
         uses: actionshub/test-kitchen@main
         env:
