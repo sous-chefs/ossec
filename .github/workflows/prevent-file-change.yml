@@ -2,15 +2,22 @@
 name: prevent-file-change
 
 "on":
-  pull_request:
+  pull_request_target:
     types:
       - opened
       - reopened
       - edited
       - synchronize
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   prevent-file-change:
+    permissions:
+      contents: read
+      pull-requests: write
     uses: sous-chefs/.github/.github/workflows/prevent-file-change.yml@5.0.3
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
