@@ -70,7 +70,7 @@ Standardise files with files in sous-chefs/repo-management
 
 * Standardise files with files in sous-chefs/repo-management
 * Partially modernize cookbook
-   - Refactor library helper
+   * Refactor library helper
 * Properly set repositories for various supported platforms
 * Cleanup and Fix CI
 * Add support to various platforms
@@ -136,11 +136,11 @@ Standardise files with files in sous-chefs/repo-management
 ## [1.1.0] - 2018-08-13
 
 * README Updates:
-   - Fix broken links
-   - Add reference to Wazzuh
+   * Fix broken links
+   * Add reference to Wazzuh
 * General updates to cookbook
-   - Remove EOL distros
-   - Update for current supported Chef version (13)
+   * Remove EOL distros
+   * Update for current supported Chef version (13)
 
 ## [1.0.5] - 2014-04-15
 
