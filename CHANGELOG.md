@@ -10,6 +10,23 @@ Standardise files with files in sous-chefs/repo-management
 * Modernize supported platforms and align Kitchen and CI with the current matrix
 * Add `LIMITATIONS.md`, resource documentation, test cookbook recipes, and resource-focused ChefSpec/InSpec coverage
 
+## [3.0.0](https://github.com/sous-chefs/ossec/compare/v2.0.18...v3.0.0) (2026-04-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* Migrate to Custom Resources and remove recipes ([#194](https://github.com/sous-chefs/ossec/issues/194))
+
+### Features
+
+* Migrate to Custom Resources and remove recipes ([#194](https://github.com/sous-chefs/ossec/issues/194)) ([d58551d](https://github.com/sous-chefs/ossec/commit/d58551d9c602744da8801050042bdfca0e75d739))
+
+
+### Bug Fixes
+
+* **ci:** Update workflows to use release pipeline ([#188](https://github.com/sous-chefs/ossec/issues/188)) ([1cc004a](https://github.com/sous-chefs/ossec/commit/1cc004ad272354130c96be8018ccd3d17c35ee06))
+* repair release workflow validation ([#195](https://github.com/sous-chefs/ossec/issues/195)) ([fb09242](https://github.com/sous-chefs/ossec/commit/fb09242543b67aafe903b465486521b00d777860))
+
 ## [2.0.18](https://github.com/sous-chefs/ossec/compare/v2.0.17...v2.0.18) (2025-10-16)
 
 
