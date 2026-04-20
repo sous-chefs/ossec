@@ -15,6 +15,18 @@ module OssecCookbook
       end
     end
 
+    def ossec_apt_repo_trusted?
+      platform?('debian') && node['platform_version'].to_i == 13
+    end
+
+    def ossec_yum_repo_baseurl
+      if platform?('amazon')
+        "https://updates.atomicorp.com/channels/atomic/amazon/#{node['platform_version'].to_i}/$basearch"
+      else
+        'https://updates.atomicorp.com/channels/atomic/centos/$releasever/$basearch'
+      end
+    end
+
     def ossec_deb_arch
       case node['kernel']['machine']
       when 'aarch64', 'arm64'

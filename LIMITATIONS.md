@@ -43,11 +43,17 @@ Practical limitation:
   as support commitments
 - Ubuntu 18.04 and 20.04 remain available in the archive, but 18.04 is ESM-only
   and 20.04 standard support ended on 2025-05-31
+- Debian 13 package metadata currently requires a compatibility fallback in this
+  cookbook: the Atomicorp signing path is not accepted by current apt policy, so
+  the cookbook enables `trusted=yes` for Debian 13 only to keep installs working
 
 ### DNF/YUM (RHEL family / Amazon / Fedora)
 
 - Repository base URL used by the cookbook:
-  `https://updates.atomicorp.com/channels/atomic/centos/$releasever/$basearch`
+  - RHEL-family / Fedora:
+    `https://updates.atomicorp.com/channels/atomic/centos/$releasever/$basearch`
+  - Amazon Linux:
+    `https://updates.atomicorp.com/channels/atomic/amazon/<major>/$basearch`
 - Current cookbook GPG key:
   `https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt`
 
@@ -82,6 +88,8 @@ Practical limitation:
 - The cookbook's hard-coded `centos/$releasever/$basearch` path is a legacy
   abstraction across EL-style systems, not a guarantee of explicit vendor test
   coverage for every clone
+- Amazon Linux 2023 requires its own `amazon/2023/$basearch` repository path;
+  the generic EL/CentOS path does not resolve current Amazon packages reliably
 
 ### Zypper (SUSE)
 

@@ -16,12 +16,13 @@ action :create do
       arch ossec_deb_arch
       distribution ossec_apt_repo_dist
       components %w(main)
+      trusted ossec_apt_repo_trusted?
       action :add
     end
   when 'rhel', 'fedora', 'amazon'
     yum_repository 'ossec' do
       description 'Atomicorp OSSEC packages'
-      baseurl 'https://updates.atomicorp.com/channels/atomic/centos/$releasever/$basearch'
+      baseurl ossec_yum_repo_baseurl
       gpgkey 'https://www.atomicorp.com/RPM-GPG-KEY.atomicorp.txt'
       gpgcheck true
       enabled true

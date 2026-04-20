@@ -39,7 +39,6 @@ action_class do
           'log_alert_level' => 1,
         },
       }.tap do |conf|
-        conf['alerts']['use_geoip'] = false unless platform_family?('debian')
         conf['remote'] = { 'connection' => 'secure' } if new_resource.install_type == 'server'
       end
     when 'agent'
