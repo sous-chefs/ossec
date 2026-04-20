@@ -1,4 +1,5 @@
 config:
+  ul-style: false # MD004 - release-please generates "*" in CHANGELOG.md
   ul-indent: false # MD007
   line-length: false # MD013
   no-duplicate-heading: false # MD024
