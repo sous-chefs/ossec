@@ -7,7 +7,7 @@ license          'Apache-2.0'
 source_url       'https://github.com/sous-chefs/ossec'
 issues_url       'https://github.com/sous-chefs/ossec/issues'
 description      'Provides custom resources for managing OSSEC HIDS packages and configuration'
-version          '2.0.18'
+version          '3.0.0'
 chef_version     '>= 15.3'
 
 supports 'amazon', '>= 2023.0'
