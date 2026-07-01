@@ -56,7 +56,12 @@ module OssecCookbook
     end
 
     def ossec_to_xml(hash)
-      require 'gyoku'
+      begin
+        require 'gyoku'
+      rescue LoadError
+        require 'chef-gyoku'
+      end
+
       Gyoku.xml(object_to_ossec(hash))
     end
 

@@ -66,8 +66,12 @@ suites:
     run_list: *default_run_list
     verifier: *default_verifier
   - name: client
+    provisioner:
+      named_run_list: client
     run_list: *client_run_list
     verifier: *client_verifier
   - name: server
+    provisioner:
+      named_run_list: server
     run_list: *server_run_list
     verifier: *server_verifier

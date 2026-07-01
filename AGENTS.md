@@ -1,4 +1,15 @@
-# Limitations
+# AGENTS.md
+
+## Cookbook Purpose
+
+Provides custom resources for managing OSSEC HIDS packages and configuration
+
+## Agent Findings
+
+* This cookbook is in an incremental modernization pass. Preserve existing public recipes and attributes unless a later full migration is explicitly selected.
+* Dependency management should use `Policyfile.rb`; do not reintroduce Berkshelf.
+
+## Known Limitations
 
 This cookbook currently installs OSSEC HIDS packages from the Atomicorp archive
 paths used in the legacy cookbook, not from a first-party Chef workflow.
