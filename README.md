@@ -7,7 +7,7 @@ This cookbook provides custom resources for installing and configuring OSSEC
 HIDS from the Atomicorp package archives used by the legacy cookbook.
 
 The package path is constrained by upstream and vendor archive support. Read
-[LIMITATIONS.md](LIMITATIONS.md) before expanding platform coverage.
+[AGENTS.md](AGENTS.md) before expanding platform coverage.
 
 ## Maintainers
 
@@ -130,7 +130,7 @@ end
 ## Testing
 
 ```shell
-berks install
+chef install Policyfile.rb
 cookstyle
 chef exec rspec --format documentation
 KITCHEN_LOCAL_YAML=kitchen.dokken.yml kitchen test default-ubuntu-2404 --destroy=always
