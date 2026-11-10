@@ -18,6 +18,6 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: sous-chefs/.github/.github/workflows/prevent-file-change.yml@9.0.0
+    uses: sous-chefs/.github/.github/workflows/prevent-file-change.yml@main
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
